@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBSIDIAN — Citations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --noir: #0a0a0a;
+    --noir-2: #111111;
+    --noir-3: #1a1a1a;
+    --or: #d4a843;
+    --or-pale: #e8c97a;
+    --or-sombre: #8a6a20;
+    --blanc: #f0ebe0;
+    --gris: #666;
+    --accord-1: #c0392b;
+    --accord-2: #2980b9;
+    --accord-3: #27ae60;
+    --accord-4: #8e44ad;
+    --accord-5: #d4a843;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--noir);
+    color: var(--blanc);
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ─── GRAIN OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    position: relative;
+    text-align: center;
+    padding: 80px 24px 60px;
+    border-bottom: 1px solid rgba(212, 168, 67, 0.15);
+    overflow: hidden;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 120px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--or), transparent);
+  }
+
+  .nav-back {
+    position: absolute;
+    top: 32px; left: 32px;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--or-sombre);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-back:hover { color: var(--or); }
+
+  .eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--or-sombre);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    color: var(--or);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .subtitle {
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: rgba(240, 235, 224, 0.5);
+    letter-spacing: 0.05em;
+  }
+
+  .count-badge {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 6px 20px;
+    border: 1px solid rgba(212, 168, 67, 0.3);
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--or);
+    text-transform: uppercase;
+  }
+
+  /* ─── FILTERS ─── */
+  .filter-section {
+    position: relative;
+    z-index: 1;
+    padding: 48px 24px 32px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .filter-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gris);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .btn-filter {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 10px 24px;
+    border: 1px solid rgba(212, 168, 67, 0.25);
+    background: transparent;
+    color: rgba(240, 235, 224, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-filter::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accord-color, var(--or));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .btn-filter:hover {
+    color: var(--blanc);
+    border-color: var(--accord-color, var(--or));
+  }
+
+  .btn-filter.active {
+    background: var(--accord-color, var(--or));
+    border-color: var(--accord-color, var(--or));
+    color: var(--noir);
+  }
+
+  .btn-filter[data-accord="all"] { --accord-color: var(--or); }
+  .btn-filter[data-accord="1"]   { --accord-color: var(--accord-1); }
+  .btn-filter[data-accord="2"]   { --accord-color: var(--accord-2); }
+  .btn-filter[data-accord="3"]   { --accord-color: var(--accord-3); }
+  .btn-filter[data-accord="4"]   { --accord-color: var(--accord-4); }
+  .btn-filter[data-accord="5"]   { --accord-color: var(--accord-5); }
+
+  /* ─── SEARCH ─── */
+  .search-wrap {
+    max-width: 480px;
+    margin: 24px auto 0;
+    position: relative;
+  }
+
+  .search-input {
+    width: 100%;
+    background: var(--noir-2);
+    border: 1px solid rgba(212, 168, 67, 0.2);
+    color: var(--blanc);
+    font-family: 'Crimson Text', serif;
+    font-size: 1rem;
+    padding: 12px 20px 12px 44px;
+    outline: none;
+    transition: border-color 0.3s;
+    letter-spacing: 0.03em;
+  }
+  .search-input::placeholder { color: var(--gris); }
+  .search-input:focus { border-color: rgba(212, 168, 67, 0.5); }
+
+  .search-icon {
+    position: absolute;
+    left: 16px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--or-sombre);
+    font-size: 14px;
+  }
+
+  /* ─── GRID ─── */
+  .grid-section {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 24px 80px;
+  }
+
+  .result-info {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--gris);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+  }
+
+  /* ─── CARD ─── */
+  .card {
+    background: var(--noir-2);
+    border: 1px solid rgba(212, 168, 67, 0.1);
+    padding: 32px;
+    position: relative;
+    transition: all 0.4s ease;
+    animation: fadeIn 0.5s ease both;
+    cursor: default;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card:hover {
+    border-color: var(--card-accent, var(--or));
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--card-accent, var(--or));
+    opacity: 0.6;
+    transition: opacity 0.3s;
+  }
+
+  .card:hover::before { opacity: 1; }
+
+  .card[data-accord="1"] { --card-accent: var(--accord-1); }
+  .card[data-accord="2"] { --card-accent: var(--accord-2); }
+  .card[data-accord="3"] { --card-accent: var(--accord-3); }
+  .card[data-accord="4"] { --card-accent: var(--accord-4); }
+  .card[data-accord="5"] { --card-accent: var(--accord-5); }
+
+  .card-accord {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--card-accent, var(--or));
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-accord::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--card-accent, var(--or));
+    opacity: 0.2;
+  }
+
+  .card-quote {
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.65;
+    color: var(--blanc);
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .card-quote::before {
+    content: '\201C';
+    position: absolute;
+    top: -12px; left: -8px;
+    font-size: 4rem;
+    color: var(--card-accent, var(--or));
+    opacity: 0.15;
+    line-height: 1;
+    font-style: normal;
+  }
+
+  .card-source {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--gris);
+    text-transform: uppercase;
+  }
+
+  /* ─── EMPTY STATE ─── */
+  .empty-state {
+    text-align: center;
+    padding: 80px 24px;
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .empty-state.visible { display: block; }
+
+  .empty-glyph {
+    font-family: 'Cinzel', serif;
+    font-size: 3rem;
+    color: rgba(212, 168, 67, 0.15);
+    margin-bottom: 16px;
+  }
+
+  .empty-text {
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    color: var(--gris);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 32px;
+    border-top: 1px solid rgba(212, 168, 67, 0.08);
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: rgba(102,102,102,0.5);
+    text-transform: uppercase;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    header { padding: 64px 20px 48px; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .btn-filter { padding: 8px 16px; font-size: 10px; }
+    .nav-back { font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="nav-back">← Obsidian</a>
+  <p class="eyebrow">Les 4 Accords Toltèques</p>
+  <h1>Citations</h1>
+  <p class="subtitle">Paroles pour transformer l'esprit</p>
+  <span class="count-badge" id="totalBadge">40 citations</span>
+</header>
+
+<section class="filter-section">
+  <p class="filter-label">Filtrer par accord</p>
+  <div class="filters">
+    <button class="btn-filter active" data-accord="all">Tous</button>
+    <button class="btn-filter" data-accord="1">I ��� Parole impeccable</button>
+    <button class="btn-filter" data-accord="2">II — Ne pas supposer</button>
+    <button class="btn-filter" data-accord="3">III — Ne pas personnaliser</button>
+    <button class="btn-filter" data-accord="4">IV — Faire de son mieux</button>
+    <button class="btn-filter" data-accord="5">V — Scepticisme intelligent</button>
+  </div>
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input type="text" class="search-input" id="searchInput" placeholder="Rechercher dans les citations…">
+  </div>
+</section>
+
+<section class="grid-section">
+  <p class="result-info" id="resultInfo">40 citations affichées</p>
+  <div class="cards-grid" id="cardsGrid"></div>
+  <div class="empty-state" id="emptyState">
+    <div class="empty-glyph">◈</div>
+    <p class="empty-text">Aucune citation ne correspond à cette recherche.</p>
+  </div>
+</section>
+
+<footer>OBSIDIAN — La Voie Toltèque</footer>
+
+<script>
+const CITATIONS = [
+  // ── ACCORD I — La Parole Impeccable (8 citations)
+  { accord: 1, nom: "Accord I", texte: "Soyez impeccable avec votre parole. Parlez avec intégrité. Ne dites que ce que vous pensez vraiment.", source: "Don Miguel Ruiz" },
+  { accord: 1, nom: "Accord I", texte: "La parole est un outil. Elle peut créer le plus beau rêve ou détruire tout ce qui vous entoure.", source: "Don Miguel Ruiz" },
+  { accord: 1, nom: "Accord I", texte: "Votre parole est le pouvoir que vous avez pour créer. Elle est le don qui vient directement de Dieu.", source: "Don Miguel Ruiz — Les 4 Accords Toltèques" },
+  { accord: 1, nom: "Accord I", texte: "Impeccable signifie sans péché. Un péché est tout ce que vous faites qui va à l'encontre de vous-même.", source: "Don Miguel Ruiz" },
+  { accord: 1, nom: "Accord I", texte: "Utilisez la parole dans le sens de la vérité et de l'amour. Si quelqu'un vous dit : 'Vous pouvez voler', ne le croyez pas.", source: "Don Miguel Ruiz" },
+  { accord: 1, nom: "Accord I", texte: "Les commérages sont de la magie noire de la pire espèce, car c'est une parole pure empoisonnée.", source: "Don Miguel Ruiz" },
+  { accord: 1, nom: "Accord I", texte: "La parole impeccable vous purifie de tout poison émotionnel. Elle exprime votre nature divine et dissipe le brouillard des peurs.", source: "Don Miguel Ruiz" },
+  { accord: 1, nom: "Accord I", texte: "Vous vous programmez vous-même avec chaque mot prononcé. Ce que vous dites à voix haute devient votre réalité intérieure.", source: "Don Miguel Ruiz — La Maîtrise de l'Amour" },
+
+  // ── ACCORD II — Ne pas supposer (8 citations)
+  { accord: 2, nom: "Accord II", texte: "Ne faites aucune supposition. Trouvez le courage de poser les questions et d'exprimer vos vrais désirs.", source: "Don Miguel Ruiz" },
+  { accord: 2, nom: "Accord II", texte: "Toutes nos tristesses et drames viennent de suppositions. Nous supposons, puis nous croyons nos suppositions.", source: "Don Miguel Ruiz" },
+  { accord: 2, nom: "Accord II", texte: "Le problème avec les suppositions, c'est que nous croyons qu'elles sont la vérité.", source: "Don Miguel Ruiz — Les 4 Accords Toltèques" },
+  { accord: 2, nom: "Accord II", texte: "Communiquez clairement avec les autres pour éviter la tristesse et les malentendus. C'est le remède à mille conflits.", source: "Don Miguel Ruiz" },
+  { accord: 2, nom: "Accord II", texte: "Nous supposons que les autres pensent comme nous pensons, ressentent comme nous ressentons. Voilà le piège.", source: "Don Miguel Ruiz" },
+  { accord: 2, nom: "Accord II", texte: "Posez des questions. C'est l'acte de courage le plus simple et le plus transformateur que vous puissiez accomplir.", source: "Don Miguel Ruiz" },
+  { accord: 2, nom: "Accord II", texte: "La clarté dans la communication est une forme de respect profond envers l'autre et envers vous-même.", source: "Don Miguel Ruiz — La Maîtrise de l'Amour" },
+  { accord: 2, nom: "Accord II", texte: "Ne supposez pas que vous savez ce que quelqu'un pense. Seul votre propre rêve vous appartient.", source: "Don Miguel Ruiz" },
+
+  // ── ACCORD III — Ne pas personnaliser (9 citations)
+  { accord: 3, nom: "Accord III", texte: "Ne prenez rien personnellement. Ce que les autres font, c'est leur propre réalité, pas la vôtre.", source: "Don Miguel Ruiz" },
+  { accord: 3, nom: "Accord III", texte: "Rien de ce que les autres font n'est à cause de vous. C'est à cause d'eux-mêmes.", source: "Don Miguel Ruiz — Les 4 Accords Toltèques" },
+  { accord: 3, nom: "Accord III", texte: "Même les opinions que vous avez de vous-même ne sont pas nécessairement vraies. Ne les prenez pas personnellement.", source: "Don Miguel Ruiz" },
+  { accord: 3, nom: "Accord III", texte: "Lorsque vous ne prenez rien personnellement, vous êtes immunisé contre les venins émotionnels.", source: "Don Miguel Ruiz" },
+  { accord: 3, nom: "Accord III", texte: "Si quelqu'un vous insulte, vous crie dessus ou vous blesse, ne le prenez pas personnellement. Vous n'êtes pas la cause.", source: "Don Miguel Ruiz" },
+  { accord: 3, nom: "Accord III", texte: "Chaque personne vit dans son propre rêve. Ce qu'elle projette n'a rien à voir avec votre valeur réelle.", source: "Don Miguel Ruiz" },
+  { accord: 3, nom: "Accord III", texte: "Le second accord est la liberté. Personne ne peut vous atteindre si vous ne lui prêtez pas cette arme.", source: "Don Miguel Ruiz — La Maîtrise de l'Amour" },
+  { accord: 3, nom: "Accord III", texte: "Même si quelqu'un vous dit que vous êtes merveilleux — ne le prenez pas personnellement. Cela appartient à leur rêve.", source: "Don Miguel Ruiz" },
+  { accord: 3, nom: "Accord III", texte: "Ce que les autres pensent de vous ne vous appartient pas. Ce que vous pensez de vous-même — voilà la question.", source: "Don Miguel Ruiz" },
+
+  // ── ACCORD IV — Faire de son mieux (8 citations)
+  { accord: 4, nom: "Accord IV", texte: "Faites toujours de votre mieux. Cela changera d'un moment à l'autre. Faites simplement de votre mieux.", source: "Don Miguel Ruiz" },
+  { accord: 4, nom: "Accord IV", texte: "Votre mieux variera selon les circonstances. Il sera différent quand vous serez en bonne santé ou malade.", source: "Don Miguel Ruiz — Les 4 Accords Toltèques" },
+  { accord: 4, nom: "Accord IV", texte: "Faites de votre mieux, et vous éviterez de vous juger, de vous punir et de vous plaindre.", source: "Don Miguel Ruiz" },
+  { accord: 4, nom: "Accord IV", texte: "Lorsque vous faites de votre mieux, vous apprenez à accepter ce que vous êtes sans vous condamner.", source: "Don Miguel Ruiz" },
+  { accord: 4, nom: "Accord IV", texte: "L'action est ce qui vous fait vivre intensément, ce qui vous donne la joie d'être vivant.", source: "Don Miguel Ruiz" },
+  { accord: 4, nom: "Accord IV", texte: "Si vous faites de votre mieux, le sentiment de culpabilité et le remords n'ont plus de prise sur vous.", source: "Don Miguel Ruiz" },
+  { accord: 4, nom: "Accord IV", texte: "Le mieux que vous puissiez faire dans un mauvais jour vaut mieux que le moins que vous fassiez dans un bon.", source: "Don Miguel Ruiz — La Maîtrise de l'Amour" },
+  { accord: 4, nom: "Accord IV", texte: "Faire de son mieux, c'est vivre pleinement dans le présent, sans se perdre dans hier ou demain.", source: "Don Miguel Ruiz" },
+
+  // ── ACCORD V — Scepticisme intelligent (7 citations)
+  { accord: 5, nom: "Accord V", texte: "Soyez sceptique, mais apprenez à écouter. Ne vous croyez pas vous-même ou quiconque sans vérification.", source: "Don Miguel Ruiz — Le 5e Accord" },
+  { accord: 5, nom: "Accord V", texte: "Le scepticisme intelligent est l'outil le plus puissant que vous ayez pour briser les croyances limitantes.", source: "Don Miguel Ruiz" },
+  { accord: 5, nom: "Accord V", texte: "Douter, c'est ne pas croire aveuglément. Chercher la vérité, c'est aller au-delà des mots et des symboles.", source: "Don Miguel Ruiz — Le 5e Accord" },
+  { accord: 5, nom: "Accord V", texte: "Les mots ne sont que des symboles. Le vrai message est derrière les symboles. Apprenez à lire au-delà.", source: "Don Miguel Ruiz" },
+  { accord: 5, nom: "Accord V", texte: "Ne croyez pas ce que vous avez entendu, ce que vous avez lu, ce que vous avez imaginé. Vérifiez par vous-même.", source: "Don Miguel Ruiz — Le 5e Accord" },
+  { accord: 5, nom: "Accord V", texte: "Chaque être humain est un conteur. Les histoires qu'il vous raconte sont les siennes, pas la vérité absolue.", source: "Don Miguel Ruiz" },
+  { accord: 5, nom: "Accord V", texte: "Le vrai sceptique écoute avec attention, mais ne laisse pas les mots des autres dicter sa vision du monde.", source: "Don Miguel Ruiz — Le 5e Accord" },
+];
+
+const ACCORD_LABELS = {
+  1: "I — Parole impeccable",
+  2: "II — Ne pas supposer",
+  3: "III — Ne pas personnaliser",
+  4: "IV — Faire de son mieux",
+  5: "V — Scepticisme intelligent",
+};
+
+const grid = document.getElementById('cardsGrid');
+const resultInfo = document.getElementById('resultInfo');
+const emptyState = document.getElementById('emptyState');
+const searchInput = document.getElementById('searchInput');
+const totalBadge = document.getElementById('totalBadge');
+
+totalBadge.textContent = `${CITATIONS.length} citations`;
+
+let activeAccord = 'all';
+let searchTerm = '';
+
+function renderCards() {
+  const filtered = CITATIONS.filter(c => {
+    const matchAccord = activeAccord === 'all' || c.accord == activeAccord;
+    const matchSearch = searchTerm === '' ||
+      c.texte.toLowerCase().includes(searchTerm) ||
+      c.source.toLowerCase().includes(searchTerm);
+    return matchAccord && matchSearch;
+  });
+
+  grid.innerHTML = '';
+
+  if (filtered.length === 0) {
+    emptyState.classList.add('visible');
+    resultInfo.textContent = '0 citation affichée';
+    return;
+  }
+
+  emptyState.classList.remove('visible');
+  resultInfo.textContent = `${filtered.length} citation${filtered.length > 1 ? 's' : ''} affichée${filtered.length > 1 ? 's' : ''}`;
+
+  filtered.forEach((c, i) => {
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.dataset.accord = c.accord;
+    card.style.animationDelay = `${i * 0.04}s`;
+    card.innerHTML = `
+      <div class="card-accord">${ACCORD_LABELS[c.accord]}</div>
+      <p class="card-quote">${c.texte}</p>
+      <p class="card-source">${c.source}</p>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// Filtres
+document.querySelectorAll('.btn-filter').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeAccord = btn.dataset.accord;
+    renderCards();
+  });
+});
+
+// Recherche
+searchInput.addEventListener('input', e => {
+  searchTerm = e.target.value.toLowerCase().trim();
+  renderCards();
+});
+
+// Init
+renderCards();
+</script>
+</body>
+</html>

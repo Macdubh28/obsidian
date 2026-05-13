@@ -1,0 +1,14 @@
+{
+  "name": "OBSIDIAN — Les 5 Accords Toltèques",
+  "short_name": "OBSIDIAN",
+  "description": "Plateforme de sagesse toltèque — Ghost Ecosystem VII",
+  "start_url": "/obsidian/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#d4a843",
+  "orientation": "portrait",
+  "icons": [
+    {"src": "assets/eagle.jpg", "sizes": "192x192", "type": "image/jpeg"},
+    {"src": "assets/eagle.jpg", "sizes": "512x512", "type": "image/jpeg"}
+  ]
+}

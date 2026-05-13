@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBSIDIAN — Les 5 Accords Toltèques</title>
+<meta name="description" content="Plateforme de sagesse toltèque. Les 5 Accords selon don Miguel Ruiz.">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a0a0a">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+--or:#d4a843;
+--or-dim:rgba(212,168,67,0.18);
+--or-subtle:rgba(212,168,67,0.07);
+--pierre:#f0e8d0;
+--noir:#0a0a0a;
+--noir2:#0d0d0d;
+--texte:rgba(240,232,208,0.75);
+}
+html{scroll-behavior:smooth;}
+body{background:var(--noir);color:var(--pierre);font-family:'Crimson Text',serif;min-height:100vh;}
+
+/* NAV */
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 40px;border-bottom:0.5px solid rgba(212,168,67,0.2);position:sticky;top:0;background:rgba(10,10,10,0.97);z-index:100;backdrop-filter:blur(8px);}
+.logo-row{display:flex;align-items:center;gap:12px;}
+.logo-circle{width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(212,168,67,0.6);background:var(--or-dim);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.logo-circle img{width:100%;height:100%;object-fit:cover;}
+.logo-eagle-svg{font-size:20px;color:var(--or);}
+.site-name{font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:0.2em;color:var(--or);text-transform:uppercase;}
+.nav-links{display:flex;gap:28px;}
+.nav-links a{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;color:rgba(212,168,67,0.5);text-decoration:none;text-transform:uppercase;transition:color 0.2s;}
+.nav-links a:hover{color:var(--or);}
+
+/* HERO */
+.hero{position:relative;min-height:480px;display:flex;align-items:center;padding:80px 40px;overflow:hidden;}
+.hero-glow{position:absolute;right:10%;top:50%;transform:translateY(-50%);width:400px;height:400px;background:radial-gradient(ellipse,rgba(212,168,67,0.06) 0%,transparent 70%);pointer-events:none;}
+.hero-eagle-placeholder{position:absolute;right:0;top:0;bottom:0;width:42%;background:linear-gradient(135deg,#1a1408 0%,#0d0d0d 100%);display:flex;align-items:center;justify-content:center;mask-image:linear-gradient(to left,rgba(0,0,0,0.95) 40%,transparent 100%);-webkit-mask-image:linear-gradient(to left,rgba(0,0,0,0.95) 40%,transparent 100%);}
+.eagle-icon-large{font-size:120px;color:rgba(212,168,67,0.12);line-height:1;}
+.hero-content{position:relative;z-index:2;max-width:520px;}
+.eyebrow{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;color:rgba(212,168,67,0.5);text-transform:uppercase;margin-bottom:16px;}
+.hero-title{font-family:'Cinzel',serif;font-size:52px;font-weight:700;line-height:1.1;letter-spacing:0.03em;margin-bottom:12px;color:var(--pierre);}
+.hero-title span{color:var(--or);}
+.hero-subtitle{font-family:'Crimson Text',serif;font-size:18px;font-style:italic;color:var(--texte);line-height:1.7;margin-bottom:32px;}
+.hero-cta{display:inline-block;padding:12px 32px;border:1px solid rgba(212,168,67,0.45);color:var(--or);font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;border-radius:2px;background:var(--or-subtle);transition:all 0.2s;}
+.hero-cta:hover{background:var(--or-dim);border-color:var(--or);}
+
+/* ACCORDS GRID */
+.accords-section{padding:60px 40px;}
+.section-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;color:rgba(212,168,67,0.4);text-transform:uppercase;margin-bottom:40px;text-align:center;}
+.accords-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:rgba(212,168,67,0.08);}
+.accord-card{background:var(--noir2);padding:32px 20px;text-align:center;cursor:pointer;text-decoration:none;transition:background 0.25s;display:block;border:0.5px solid transparent;}
+.accord-card:hover{background:rgba(212,168,67,0.05);border-color:rgba(212,168,67,0.15);}
+.accord-num{font-family:'Cinzel',serif;font-size:36px;font-weight:700;color:rgba(212,168,67,0.2);display:block;margin-bottom:12px;line-height:1;}
+.accord-icon{font-size:22px;color:rgba(212,168,67,0.4);margin-bottom:12px;display:block;}
+.accord-name{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.1em;color:var(--pierre);text-transform:uppercase;display:block;margin-bottom:8px;line-height:1.5;}
+.accord-desc{font-family:'Crimson Text',serif;font-size:13px;font-style:italic;color:var(--texte);line-height:1.5;}
+
+/* CITATION DU JOUR */
+.citation-section{padding:60px 40px;border-top:0.5px solid rgba(212,168,67,0.1);border-bottom:0.5px solid rgba(212,168,67,0.1);text-align:center;}
+.citation-ornement{font-family:'Cinzel',serif;font-size:60px;color:rgba(212,168,67,0.1);line-height:0.8;margin-bottom:20px;}
+.citation-texte{font-family:'Crimson Text',serif;font-size:22px;font-style:italic;color:var(--pierre);max-width:640px;margin:0 auto 16px;line-height:1.7;}
+.citation-source{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;color:rgba(212,168,67,0.5);text-transform:uppercase;}
+
+/* OUTILS */
+.outils-section{padding:60px 40px;}
+.outils-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:32px;}
+.outil-card{background:var(--noir2);border:0.5px solid rgba(212,168,67,0.12);border-radius:4px;padding:24px;text-decoration:none;transition:border-color 0.2s;}
+.outil-card:hover{border-color:rgba(212,168,67,0.35);}
+.outil-icon{font-size:24px;color:var(--or);margin-bottom:12px;display:block;opacity:0.6;}
+.outil-name{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.12em;color:var(--pierre);text-transform:uppercase;display:block;margin-bottom:6px;}
+.outil-desc{font-family:'Crimson Text',serif;font-size:13px;color:var(--texte);line-height:1.5;}
+
+/* FOOTER */
+footer{padding:32px 40px;border-top:0.5px solid rgba(212,168,67,0.1);display:flex;justify-content:space-between;align-items:center;}
+.footer-tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;color:rgba(212,168,67,0.3);text-transform:uppercase;}
+
+/* MOBILE */
+@media(max-width:768px){
+nav{padding:14px 20px;}
+.nav-links{display:none;}
+.hero{padding:60px 20px;min-height:360px;}
+.hero-title{font-size:34px;}
+.hero-eagle-placeholder{width:35%;}
+.accords-section{padding:40px 20px;}
+.accords-grid{grid-template-columns:repeat(2,1fr);}
+.citation-section{padding:40px 20px;}
+.outils-section{padding:40px 20px;}
+footer{padding:24px 20px;flex-direction:column;gap:8px;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo-row">
+    <div class="logo-circle">
+      <span style="font-size:22px;color:var(--or);">🦅</span>
+    </div>
+    <span class="site-name">Obsidian</span>
+  </div>
+  <div class="nav-links">
+    <a href="accord-1.html">Les Accords</a>
+    <a href="citations.html">Citations</a>
+    <a href="journal.html">Journal</a>
+    <a href="meditation.html">Méditation</a>
+    <a href="progression.html">Progression</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-eagle-placeholder">
+    <div class="eagle-icon-large">🦅</div>
+  </div>
+  <div class="hero-content">
+    <p class="eyebrow">Sagesse Toltèque · Macdubh · Ghost Ecosystem VII</p>
+    <h1 class="hero-title">Les <span>5 Accords</span><br>Toltèques</h1>
+    <p class="hero-subtitle">La voie de la maîtrise de soi.<br>Forged in darkness. Seen from above.</p>
+    <a href="accord-1.html" class="hero-cta">Commencer la pratique</a>
+  </div>
+</section>
+
+<section class="accords-section">
+  <p class="section-label">Les cinq accords · don Miguel Ruiz</p>
+  <div class="accords-grid">
+    <a href="accord-1.html" class="accord-card">
+      <span class="accord-num">I</span>
+      <span class="accord-icon">💬</span>
+      <span class="accord-name">Parole Impeccable</span>
+      <span class="accord-desc">Que ta parole soit impeccable. Parle avec intégrité.</span>
+    </a>
+    <a href="accord-2.html" class="accord-card">
+      <span class="accord-num">II</span>
+      <span class="accord-icon">🛡</span>
+      <span class="accord-name">Ne rien prendre personnellement</span>
+      <span class="accord-desc">Ce que les autres font n'est pas à cause de toi.</span>
+    </a>
+    <a href="accord-3.html" class="accord-card">
+      <span class="accord-num">III</span>
+      <span class="accord-icon">🔍</span>
+      <span class="accord-name">Ne pas faire de suppositions</span>
+      <span class="accord-desc">Trouve le courage de poser les questions.</span>
+    </a>
+    <a href="accord-4.html" class="accord-card">
+      <span class="accord-num">IV</span>
+      <span class="accord-icon">🔥</span>
+      <span class="accord-name">Toujours faire de son mieux</span>
+      <span class="accord-desc">Ton mieux change d'un moment à l'autre.</span>
+    </a>
+    <a href="accord-5.html" class="accord-card">
+      <span class="accord-num">V</span>
+      <span class="accord-icon">👁</span>
+      <span class="accord-name">Sceptique mais à l'écoute</span>
+      <span class="accord-desc">Ne te crois pas toi-même ni les autres aveuglément.</span>
+    </a>
+  </div>
+</section>
+
+<section class="citation-section">
+  <div class="citation-ornement">"</div>
+  <p class="citation-texte" id="citation-du-jour">Soyez impeccable avec votre parole. Parlez avec intégrité. Ne dites que ce que vous pensez vraiment.</p>
+  <p class="citation-source">— don Miguel Ruiz · Les 4 Accords Toltèques</p>
+</section>
+
+<section class="outils-section">
+  <p class="section-label">Outils de pratique</p>
+  <div class="outils-grid">
+    <a href="journal.html" class="outil-card">
+      <span class="outil-icon">📓</span>
+      <span class="outil-name">Journal</span>
+      <span class="outil-desc">Consigne ta pratique quotidienne des accords.</span>
+    </a>
+    <a href="meditation.html" class="outil-card">
+      <span class="outil-icon">🌑</span>
+      <span class="outil-name">Mode Méditation</span>
+      <span class="outil-desc">Interface épurée. Un accord. Le silence.</span>
+    </a>
+    <a href="progression.html" class="outil-card">
+      <span class="outil-icon">📈</span>
+      <span class="outil-name">Progression</span>
+      <span class="outil-desc">Tracker 30/60/90 jours. Guerrier Toltèque.</span>
+    </a>
+    <a href="citations.html" class="outil-card">
+      <span class="outil-icon">✦</span>
+      <span class="outil-name">Citations</span>
+      <span class="outil-desc">40+ citations filtrables par accord et par livre.</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-tag">Ghost Ecosystem · Platform VII · Macdubh28</span>
+  <span class="footer-tag">@AigleRoyal28 · Obsidian</span>
+</footer>
+
+<script>
+const citations=[
+"Soyez impeccable avec votre parole. Parlez avec intégrité.",
+"Rien de ce que les autres font n'est à cause de vous.",
+"Ne faites pas de suppositions. Trouvez le courage de poser les questions.",
+"Faites toujours de votre mieux. Votre mieux changera d'un moment à l'autre.",
+"Soyez sceptique, mais apprenez à écouter."
+];
+const sources=[
+"don Miguel Ruiz · 1er Accord",
+"don Miguel Ruiz · 2e Accord",
+"don Miguel Ruiz · 3e Accord",
+"don Miguel Ruiz · 4e Accord",
+"don Miguel Ruiz & don Jose Ruiz · 5e Accord"
+];
+const idx=Math.floor(Date.now()/86400000)%citations.length;
+document.getElementById('citation-du-jour').textContent=citations[idx];
+document.querySelector('.citation-source').textContent='— '+sources[idx];
+if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js');});}
+</script>
+</body>
+</html>

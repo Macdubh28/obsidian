@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBSIDIAN — IV. Toujours faire de son mieux</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a0a0a">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--or:#d4a843;--or-dim:rgba(212,168,67,0.18);--or-subtle:rgba(212,168,67,0.07);--pierre:#f0e8d0;--noir:#0a0a0a;--noir2:#0d0d0d;--texte:rgba(240,232,208,0.75);}
+body{background:var(--noir);color:var(--pierre);font-family:'Crimson Text',serif;min-height:100vh;}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 40px;border-bottom:0.5px solid rgba(212,168,67,0.2);position:sticky;top:0;background:rgba(10,10,10,0.97);z-index:100;}
+.logo-row{display:flex;align-items:center;gap:12px;}
+.logo-circle{width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(212,168,67,0.6);background:var(--or-dim);display:flex;align-items:center;justify-content:center;}
+.site-name{font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:0.2em;color:var(--or);text-decoration:none;}
+.nav-links{display:flex;gap:28px;}
+.nav-links a{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;color:rgba(212,168,67,0.5);text-decoration:none;text-transform:uppercase;transition:color 0.2s;}
+.nav-links a:hover{color:var(--or);}
+.hero-accord{padding:80px 40px 60px;border-bottom:0.5px solid rgba(212,168,67,0.1);position:relative;overflow:hidden;}
+.hero-accord::before{content:'IV';position:absolute;right:40px;top:40px;font-family:'Cinzel',serif;font-size:180px;font-weight:700;color:rgba(212,168,67,0.04);line-height:1;pointer-events:none;}
+.accord-numero{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.35em;color:rgba(212,168,67,0.5);text-transform:uppercase;margin-bottom:16px;}
+.accord-titre{font-family:'Cinzel',serif;font-size:48px;font-weight:700;color:var(--pierre);line-height:1.1;margin-bottom:8px;}
+.accord-titre span{color:var(--or);}
+.accord-sous-titre{font-family:'Crimson Text',serif;font-size:20px;font-style:italic;color:var(--texte);margin-bottom:32px;}
+.accord-badge{display:inline-block;padding:6px 16px;border:0.5px solid rgba(212,168,67,0.3);font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;color:rgba(212,168,67,0.6);text-transform:uppercase;border-radius:2px;}
+.content{max-width:760px;margin:0 auto;padding:60px 40px;}
+.section-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;color:rgba(212,168,67,0.4);text-transform:uppercase;margin-bottom:24px;}
+.definition p{font-family:'Crimson Text',serif;font-size:19px;line-height:1.8;color:var(--texte);margin-bottom:20px;}
+.definition p strong{color:var(--pierre);font-weight:600;}
+.citations-block{margin:60px 0;}
+.citation-item{border-left:2px solid rgba(212,168,67,0.3);padding:20px 28px;margin-bottom:24px;background:rgba(212,168,67,0.03);}
+.citation-item blockquote{font-family:'Crimson Text',serif;font-size:20px;font-style:italic;color:var(--pierre);line-height:1.7;margin-bottom:10px;}
+.citation-item cite{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;color:rgba(212,168,67,0.5);text-transform:uppercase;}
+.exercice-block{background:rgba(212,168,67,0.04);border:0.5px solid rgba(212,168,67,0.15);border-radius:4px;padding:32px;margin:60px 0;}
+.exercice-title{font-family:'Cinzel',serif;font-size:13px;letter-spacing:0.15em;color:var(--or);text-transform:uppercase;margin-bottom:20px;}
+.exercice-block p{font-family:'Crimson Text',serif;font-size:17px;line-height:1.8;color:var(--texte);margin-bottom:12px;}
+.exercice-block ol{padding-left:20px;}
+.exercice-block li{font-family:'Crimson Text',serif;font-size:17px;line-height:1.8;color:var(--texte);margin-bottom:8px;}
+.nav-accords{display:flex;justify-content:space-between;align-items:center;padding:32px 40px;border-top:0.5px solid rgba(212,168,67,0.1);margin-top:40px;}
+.nav-accord-btn{display:flex;align-items:center;gap:12px;text-decoration:none;padding:12px 20px;border:0.5px solid rgba(212,168,67,0.2);border-radius:2px;transition:border-color 0.2s;}
+.nav-accord-btn:hover{border-color:rgba(212,168,67,0.5);}
+.nav-accord-btn span{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;color:rgba(212,168,67,0.5);text-transform:uppercase;}
+.nav-accord-btn strong{font-family:'Cinzel',serif;font-size:11px;color:var(--pierre);display:block;margin-top:2px;}
+footer{padding:32px 40px;border-top:0.5px solid rgba(212,168,67,0.1);display:flex;justify-content:space-between;}
+.footer-tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;color:rgba(212,168,67,0.3);text-transform:uppercase;}
+@media(max-width:768px){nav{padding:14px 20px;}.nav-links{display:none;}.hero-accord{padding:50px 20px 40px;}.hero-accord::before{font-size:100px;right:20px;}.accord-titre{font-size:32px;}.content{padding:40px 20px;}.nav-accords{padding:24px 20px;flex-direction:column;gap:12px;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo-row">
+    <div class="logo-circle"><span style="font-size:20px;color:var(--or);">🦅</span></div>
+    <a href="index.html" class="site-name">Obsidian</a>
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Accueil</a>
+    <a href="citations.html">Citations</a>
+    <a href="journal.html">Journal</a>
+    <a href="meditation.html">Méditation</a>
+    <a href="progression.html">Progression</a>
+  </div>
+</nav>
+
+<div class="hero-accord">
+  <p class="accord-numero">Quatrième Accord · Les 4 Accords Toltèques</p>
+  <h1 class="accord-titre">Toujours faire<br>de son <span>mieux</span></h1>
+  <p class="accord-sous-titre">Ton mieux changera d'un moment à l'autre. Fais simplement de ton mieux.</p>
+  <span class="accord-badge">L'action sans jugement</span>
+</div>
+
+<div class="content">
+  <div class="definition">
+    <p class="section-label">Définition</p>
+    <p>Ton mieux changera d'un moment à l'autre — il sera différent quand tu es en bonne santé et quand tu es malade, quand tu es reposé et quand tu es épuisé. <strong>Sous n'importe quelle circonstance, fais simplement de ton mieux — ni plus, ni moins.</strong></p>
+    <p>Si tu fais toujours de ton mieux, tu évites de te juger, de te culpabiliser et de te punir. La culpabilité et l'auto-punition sont parmi les poisons les plus destructeurs que l'on s'inflige. Faire de son mieux libère de ce cycle.</p>
+    <p>Ce quatrième accord est celui qui rend les trois autres vivants. <strong>Sans action, sans pratique quotidienne, les accords restent des mots.</strong> C'est dans l'action répétée, dans l'effort constant — même imparfait — que se construit la liberté toltèque.</p>
+  </div>
+
+  <div class="citations-block">
+    <p class="section-label">Citations</p>
+    <div class="citation-item">
+      <blockquote>Fais toujours de ton mieux. Ton mieux changera d'un moment à l'autre. Sous n'importe quelle circonstance, fais simplement de ton mieux.</blockquote>
+      <cite>— don Miguel Ruiz · Les 4 Accords Toltèques</cite>
+    </div>
+    <div class="citation-item">
+      <blockquote>Si tu fais toujours de ton mieux, il n'y a pas de place pour le regret. Tu n'as pas à te juger ni à te punir.</blockquote>
+      <cite>— don Miguel Ruiz · Les 4 Accords Toltèques</cite>
+    </div>
+    <div class="citation-item">
+      <blockquote>L'action est ce qui fait de toi un être humain maître de lui-même. L'inaction te maintient dans la servitude.</blockquote>
+      <cite>— don Miguel Ruiz · Les 4 Accords Toltèques</cite>
+    </div>
+    <div class="citation-item">
+      <blockquote>Fais de ton mieux simplement parce que c'est une joie de le faire, et non parce que tu attends une récompense.</blockquote>
+      <cite>— don Miguel Ruiz · Les 4 Accords Toltèques</cite>
+    </div>
+  </div>
+
+  <div class="exercice-block">
+    <p class="exercice-title">⚔ Exercice du Guerrier</p>
+    <p>Choisis aujourd'hui une tâche — simple ou complexe — et engage-toi à y mettre ton mieux du moment.</p>
+    <ol>
+      <li>Avant de commencer, évalue honnêtement ton état : énergie, concentration, humeur.</li>
+      <li>Définis ce que ton mieux signifie <em>aujourd'hui</em>, pas selon un standard absolu.</li>
+      <li>Agis sans te juger en cours de route — observe, ajuste, continue.</li>
+      <li>À la fin, note : as-tu fait de ton mieux ? Si oui, il n'y a rien à regretter.</li>
+    </ol>
+  </div>
+</div>
+
+<div class="nav-accords">
+  <a href="accord-3.html" class="nav-accord-btn">
+    <span>← Accord précédent</span>
+    <strong>Ne pas faire de suppositions</strong>
+  </a>
+  <a href="accord-5.html" class="nav-accord-btn">
+    <span>Accord suivant →</span>
+    <strong>Sceptique mais à l'écoute</strong>
+  </a>
+</div>
+
+<footer>
+  <span class="footer-tag">Ghost Ecosystem · Platform VII</span>
+  <span class="footer-tag">Macdubh28 · @AigleRoyal28</span>
+</footer>
+</body>
+</html>

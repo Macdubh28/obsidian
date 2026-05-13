@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBSIDIAN — I. La Parole Impeccable</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a0a0a">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--or:#d4a843;--or-dim:rgba(212,168,67,0.18);--or-subtle:rgba(212,168,67,0.07);--pierre:#f0e8d0;--noir:#0a0a0a;--noir2:#0d0d0d;--texte:rgba(240,232,208,0.75);}
+body{background:var(--noir);color:var(--pierre);font-family:'Crimson Text',serif;min-height:100vh;}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 40px;border-bottom:0.5px solid rgba(212,168,67,0.2);position:sticky;top:0;background:rgba(10,10,10,0.97);z-index:100;}
+.logo-row{display:flex;align-items:center;gap:12px;}
+.logo-circle{width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(212,168,67,0.6);background:var(--or-dim);display:flex;align-items:center;justify-content:center;}
+.site-name{font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:0.2em;color:var(--or);text-decoration:none;}
+.nav-links{display:flex;gap:28px;}
+.nav-links a{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;color:rgba(212,168,67,0.5);text-decoration:none;text-transform:uppercase;transition:color 0.2s;}
+.nav-links a:hover{color:var(--or);}
+.hero-accord{padding:80px 40px 60px;border-bottom:0.5px solid rgba(212,168,67,0.1);position:relative;overflow:hidden;}
+.hero-accord::before{content:'I';position:absolute;right:40px;top:40px;font-family:'Cinzel',serif;font-size:180px;font-weight:700;color:rgba(212,168,67,0.04);line-height:1;pointer-events:none;}
+.accord-numero{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.35em;color:rgba(212,168,67,0.5);text-transform:uppercase;margin-bottom:16px;}
+.accord-titre{font-family:'Cinzel',serif;font-size:48px;font-weight:700;color:var(--pierre);line-height:1.1;margin-bottom:8px;}
+.accord-titre span{color:var(--or);}
+.accord-sous-titre{font-family:'Crimson Text',serif;font-size:20px;font-style:italic;color:var(--texte);margin-bottom:32px;}
+.accord-badge{display:inline-block;padding:6px 16px;border:0.5px solid rgba(212,168,67,0.3);font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;color:rgba(212,168,67,0.6);text-transform:uppercase;border-radius:2px;}
+.content{max-width:760px;margin:0 auto;padding:60px 40px;}
+.section-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;color:rgba(212,168,67,0.4);text-transform:uppercase;margin-bottom:24px;}
+.definition p{font-family:'Crimson Text',serif;font-size:19px;line-height:1.8;color:var(--texte);margin-bottom:20px;}
+.definition p strong{color:var(--pierre);font-weight:600;}
+.citations-block{margin:60px 0;}
+.citation-item{border-left:2px solid rgba(212,168,67,0.3);padding:20px 28px;margin-bottom:24px;background:rgba(212,168,67,0.03);}
+.citation-item blockquote{font-family:'Crimson Text',serif;font-size:20px;font-style:italic;color:var(--pierre);line-height:1.7;margin-bottom:10px;}
+.citation-item cite{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;color:rgba(212,168,67,0.5);text-transform:uppercase;}
+.exercice-block{background:rgba(212,168,67,0.04);border:0.5px solid rgba(212,168,67,0.15);border-radius:4px;padding:32px;margin:60px 0;}
+.exercice-title{font-family:'Cinzel',serif;font-size:13px;letter-spacing:0.15em;color:var(--or);text-transform:uppercase;margin-bottom:20px;}
+.exercice-block p{font-family:'Crimson Text',serif;font-size:17px;line-height:1.8;color:var(--texte);margin-bottom:12px;}
+.exercice-block ol{padding-left:20px;}
+.exercice-block li{font-family:'Crimson Text',serif;font-size:17px;line-height:1.8;color:var(--texte);margin-bottom:8px;}
+.nav-accords{display:flex;justify-content:space-between;align-items:center;padding:32px 40px;border-top:0.5px solid rgba(212,168,67,0.1);margin-top:40px;}
+.nav-accord-btn{display:flex;align-items:center;gap:12px;text-decoration:none;padding:12px 20px;border:0.5px solid rgba(212,168,67,0.2);border-radius:2px;transition:border-color 0.2s;}
+.nav-accord-btn:hover{border-color:rgba(212,168,67,0.5);}
+.nav-accord-btn span{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;color:rgba(212,168,67,0.5);text-transform:uppercase;}
+.nav-accord-btn strong{font-family:'Cinzel',serif;font-size:11px;color:var(--pierre);display:block;margin-top:2px;}
+.nav-accord-btn.disabled{opacity:0.3;pointer-events:none;}
+footer{padding:32px 40px;border-top:0.5px solid rgba(212,168,67,0.1);display:flex;justify-content:space-between;}
+.footer-tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;color:rgba(212,168,67,0.3);text-transform:uppercase;}
+@media(max-width:768px){nav{padding:14px 20px;}.nav-links{display:none;}.hero-accord{padding:50px 20px 40px;}.hero-accord::before{font-size:100px;right:20px;}.accord-titre{font-size:32px;}.content{padding:40px 20px;}.nav-accords{padding:24px 20px;flex-direction:column;gap:12px;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo-row">
+    <div class="logo-circle"><span style="font-size:20px;color:var(--or);">🦅</span></div>
+    <a href="index.html" class="site-name">Obsidian</a>
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Accueil</a>
+    <a href="citations.html">Citations</a>
+    <a href="journal.html">Journal</a>
+    <a href="meditation.html">Méditation</a>
+    <a href="progression.html">Progression</a>
+  </div>
+</nav>
+
+<div class="hero-accord">
+  <p class="accord-numero">Premier Accord · Les 4 Accords Toltèques</p>
+  <h1 class="accord-titre">La <span>Parole</span><br>Impeccable</h1>
+  <p class="accord-sous-titre">Que ta parole soit impeccable. Parle avec intégrité.</p>
+  <span class="accord-badge">Fondement de la liberté</span>
+</div>
+
+<div class="content">
+  <div class="definition">
+    <p class="section-label">Définition</p>
+    <p>La parole est le pouvoir le plus puissant que possède l'être humain. <strong>Impeccable</strong> vient du latin <em>peccatus</em> — le péché. Être impeccable avec sa parole signifie ne pas utiliser sa parole contre soi-même. C'est l'accord le plus important, et le plus difficile à honorer.</p>
+    <p>Chaque mot que tu prononces est une graine que tu plantes dans l'esprit de celui qui écoute — et dans le tien. Une parole prononcée avec colère, avec peur, ou avec l'intention de blesser, crée un sort. Ce sort se retourne inévitablement contre celui qui le lance.</p>
+    <p>La parole impeccable ne signifie pas le silence. Elle signifie <strong>utiliser le pouvoir de la parole dans le sens de la vérité et de l'amour</strong>. Parler de toi-même sans te juger ni te critiquer. Utiliser ta parole pour partager la vérité et l'amour.</p>
+  </div>
+
+  <div class="citations-block">
+    <p class="section-label">Citations</p>
+    <div class="citation-item">
+      <blockquote>Que ta parole soit impeccable. Parle avec intégrité. Ne dis que ce que tu penses vraiment. N'utilise pas la parole pour te parler contre toi-même ou pour médire des autres.</blockquote>
+      <cite>— don Miguel Ruiz · Les 4 Accords Toltèques</cite>
+    </div>
+    <div class="citation-item">
+      <blockquote>La parole est comme une graine. Si tu plantes une graine d'amour, l'amour grandira. Si tu plantes une graine de peur, la peur grandira.</blockquote>
+      <cite>— don Miguel Ruiz · Les 4 Accords Toltèques</cite>
+    </div>
+    <div class="citation-item">
+      <blockquote>Les commérages sont de la magie noire de la pire espèce, car c'est de la magie noire pure. Nous ne réalisons pas que par nos commérages, nous jetons des sorts à droite et à gauche.</blockquote>
+      <cite>— don Miguel Ruiz · Les 4 Accords Toltèques</cite>
+    </div>
+    <div class="citation-item">
+      <blockquote>Utilise le pouvoir de ta parole dans le sens de la vérité et de l'amour pour toi-même. Si tu honores cet accord, tu transformeras ta vie entière.</blockquote>
+      <cite>— don Miguel Ruiz · Les 4 Accords Toltèques</cite>
+    </div>
+  </div>
+
+  <div class="exercice-block">
+    <p class="exercice-title">⚔ Exercice du Guerrier</p>
+    <p>Pendant 24 heures, observe chaque parole que tu t'apprêtes à prononcer — sur toi-même, sur les autres, sur le monde.</p>
+    <ol>
+      <li>Avant de parler, demande-toi : <em>Est-ce vrai ? Est-ce nécessaire ? Est-ce bienveillant ?</em></li>
+      <li>Note chaque fois que tu utilises ta parole contre toi-même — critique intérieure, doute, jugement.</li>
+      <li>Remplace chaque pensée destructrice par son opposé impeccable.</li>
+      <li>Le soir, écris dans ton journal : combien de fois as-tu planté une graine d'amour ? Combien de fois une graine de peur ?</li>
+    </ol>
+  </div>
+</div>
+
+<div class="nav-accords">
+  <a href="index.html" class="nav-accord-btn">
+    <span>← Retour</span>
+    <strong>Accueil</strong>
+  </a>
+  <a href="accord-2.html" class="nav-accord-btn">
+    <span>Accord suivant →</span>
+    <strong>Ne rien prendre personnellement</strong>
+  </a>
+</div>
+
+<footer>
+  <span class="footer-tag">Ghost Ecosystem · Platform VII</span>
+  <span class="footer-tag">Macdubh28 · @AigleRoyal28</span>
+</footer>
+</body>
+</html>

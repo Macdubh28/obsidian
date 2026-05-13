@@ -1,5 +1,5 @@
-const CACHE='obsidian-v1';
-const ASSETS=[
+const CACHE = 'obsidian-v3';
+const ASSETS = [
   '/obsidian/',
   '/obsidian/index.html',
   '/obsidian/accord-1.html',
@@ -13,5 +13,36 @@ const ASSETS=[
   '/obsidian/progression.html',
   '/obsidian/manifest.json'
 ];
-self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)));});
-self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));});
+
+// Install — precache assets
+self.addEventListener('install', e => {
+  e.waitUntil(
+    caches.open(CACHE).then(c => c.addAll(ASSETS))
+  );
+  self.skipWaiting();
+});
+
+// Activate — purge old caches
+self.addEventListener('activate', e => {
+  e.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
+    )
+  );
+  self.clients.claim();
+});
+
+// Fetch — NETWORK FIRST, cache fallback
+self.addEventListener('fetch', e => {
+  if (e.request.method !== 'GET') return;
+  e.respondWith(
+    fetch(e.request)
+      .then(response => {
+        // Update cache with fresh response
+        const clone = response.clone();
+        caches.open(CACHE).then(c => c.put(e.request, clone));
+        return response;
+      })
+      .catch(() => caches.match(e.request))
+  );
+});

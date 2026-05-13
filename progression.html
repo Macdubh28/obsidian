@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBSIDIAN — Progression</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --noir: #0a0a0a;
+    --noir-2: #111111;
+    --noir-3: #1a1a1a;
+    --or: #d4a843;
+    --or-pale: #e8c97a;
+    --or-sombre: #8a6a20;
+    --blanc: #f0ebe0;
+    --gris: #555;
+    --gris-clair: #888;
+    --niveau-1: #5b8fd4;
+    --niveau-2: #27ae60;
+    --niveau-3: #d4a843;
+    --niveau-4: #8e44ad;
+    --danger: #c0392b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--noir);
+    color: var(--blanc);
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    position: relative;
+    text-align: center;
+    padding: 80px 24px 60px;
+    border-bottom: 1px solid rgba(212, 168, 67, 0.15);
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 120px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--or), transparent);
+  }
+
+  .nav-back {
+    position: absolute;
+    top: 32px; left: 32px;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--or-sombre);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-back:hover { color: var(--or); }
+
+  .eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--or-sombre);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    color: var(--or);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .subtitle {
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: rgba(240, 235, 224, 0.45);
+  }
+
+  /* ─── NIVEAU BANNER ─── */
+  .niveau-banner {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 48px auto 0;
+    padding: 0 24px;
+  }
+
+  .niveau-card {
+    border: 1px solid var(--niveau-color, var(--or));
+    padding: 32px 40px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+  }
+
+  .niveau-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--niveau-color, var(--or));
+    opacity: 0.03;
+  }
+
+  .niveau-glyph {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    color: var(--niveau-color, var(--or));
+    opacity: 0.7;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .niveau-info { flex: 1; }
+
+  .niveau-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--gris-clair);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .niveau-name {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-weight: 900;
+    color: var(--niveau-color, var(--or));
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .niveau-desc {
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(240, 235, 224, 0.5);
+  }
+
+  .niveau-progress-wrap {
+    min-width: 180px;
+    text-align: right;
+  }
+
+  .niveau-days {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--niveau-color, var(--or));
+    line-height: 1;
+    display: block;
+  }
+
+  .niveau-days-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--gris);
+    text-transform: uppercase;
+    margin-top: 4px;
+    display: block;
+  }
+
+  .niveau-next {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--gris);
+    text-transform: uppercase;
+    margin-top: 12px;
+  }
+
+  /* Progress bar */
+  .niveau-bar-wrap {
+    margin-top: 8px;
+    height: 2px;
+    background: rgba(255,255,255,0.05);
+    position: relative;
+  }
+
+  .niveau-bar-fill {
+    height: 100%;
+    background: var(--niveau-color, var(--or));
+    transition: width 0.8s ease;
+  }
+
+  /* ─── MAIN LAYOUT ─── */
+  .main-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ─── CHECK-IN ─── */
+  .checkin-section {
+    margin-bottom: 48px;
+  }
+
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--or-sombre);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(212,168,67,0.12);
+  }
+
+  .checkin-card {
+    background: var(--noir-2);
+    border: 1px solid rgba(212,168,67,0.1);
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .checkin-date {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--or);
+    text-transform: uppercase;
+  }
+
+  .checkin-status {
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(240,235,224,0.45);
+    margin-top: 4px;
+  }
+
+  .checkin-status.done { color: #27ae60; font-style: normal; }
+
+  .btn-checkin {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 14px 36px;
+    background: var(--or);
+    border: none;
+    color: var(--noir);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .btn-checkin:hover { background: var(--or-pale); }
+
+  .btn-checkin:disabled {
+    background: rgba(212,168,67,0.15);
+    color: rgba(212,168,67,0.3);
+    cursor: default;
+    border: 1px solid rgba(212,168,67,0.15);
+  }
+
+  /* ─── CALENDAR GRID ─── */
+  .calendar-section { margin-bottom: 48px; }
+
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .calendar-legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--gris-clair);
+    text-transform: uppercase;
+  }
+
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 1px;
+    flex-shrink: 0;
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 6px;
+  }
+
+  .day-cell {
+    aspect-ratio: 1;
+    border-radius: 2px;
+    cursor: default;
+    position: relative;
+    transition: transform 0.15s;
+  }
+
+  .day-cell.future {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .day-cell.missed {
+    background: rgba(192,57,43,0.12);
+    border: 1px solid rgba(192,57,43,0.2);
+  }
+
+  .day-cell.done {
+    background: var(--cell-color, rgba(212,168,67,0.5));
+    border: 1px solid var(--cell-color, rgba(212,168,67,0.6));
+  }
+
+  .day-cell.today {
+    box-shadow: 0 0 0 2px var(--or);
+    transform: scale(1.1);
+  }
+
+  .day-cell:hover .day-tooltip {
+    display: block;
+  }
+
+  .day-tooltip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--noir-3);
+    border: 1px solid rgba(212,168,67,0.2);
+    padding: 4px 8px;
+    font-family: 'Cinzel', serif;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    color: var(--or);
+    white-space: nowrap;
+    text-transform: uppercase;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  /* ─── NIVEAUX PROGRESSION ─── */
+  .niveaux-section { margin-bottom: 48px; }
+
+  .niveaux-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .niveau-tile {
+    background: var(--noir-2);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 20px 16px;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s;
+  }
+
+  .niveau-tile.active {
+    border-color: var(--tile-color, var(--or));
+    background: rgba(0,0,0,0.4);
+  }
+
+  .niveau-tile.unlocked {
+    border-color: rgba(255,255,255,0.08);
+  }
+
+  .niveau-tile.locked {
+    opacity: 0.4;
+  }
+
+  .niveau-tile-icon {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .niveau-tile-name {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--tile-color, var(--gris-clair));
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+
+  .niveau-tile.active .niveau-tile-name { color: var(--tile-color, var(--or)); }
+
+  .niveau-tile-range {
+    font-family: 'Cinzel', serif;
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    color: var(--gris);
+    text-transform: uppercase;
+  }
+
+  .niveau-tile.active .niveau-tile-range { color: var(--tile-color, var(--or)); opacity: 0.6; }
+
+  .active-badge {
+    position: absolute;
+    top: 8px; right: 8px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--tile-color, var(--or));
+  }
+
+  /* ─── STATS ─── */
+  .stats-section { margin-bottom: 48px; }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .stat-box {
+    background: var(--noir-2);
+    border: 1px solid rgba(212,168,67,0.08);
+    padding: 20px 16px;
+    text-align: center;
+  }
+
+  .stat-val {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--or);
+    display: block;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-lbl {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    color: var(--gris);
+    text-transform: uppercase;
+    line-height: 1.3;
+  }
+
+  /* ─── DANGER ZONE ─── */
+  .danger-zone {
+    border: 1px solid rgba(192,57,43,0.2);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    background: rgba(192,57,43,0.03);
+  }
+
+  .danger-text {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: rgba(192,57,43,0.5);
+    text-transform: uppercase;
+  }
+
+  .btn-reset {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    background: transparent;
+    border: 1px solid rgba(192,57,43,0.3);
+    color: rgba(192,57,43,0.5);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .btn-reset:hover {
+    border-color: var(--danger);
+    color: var(--danger);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 32px;
+    border-top: 1px solid rgba(212,168,67,0.08);
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: rgba(102,102,102,0.5);
+    text-transform: uppercase;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 700px) {
+    .niveaux-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .calendar-grid { grid-template-columns: repeat(9, 1fr); }
+    .niveau-card { flex-direction: column; align-items: flex-start; }
+    .niveau-progress-wrap { text-align: left; }
+    header { padding: 64px 20px 48px; }
+    .nav-back { font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="nav-back">← Obsidian</a>
+  <p class="eyebrow">Voie du Guerrier Toltèque</p>
+  <h1>Progression</h1>
+  <p class="subtitle">Chaque jour marqué est un accord tenu</p>
+</header>
+
+<!-- Niveau banner -->
+<div class="niveau-banner">
+  <div class="niveau-card" id="niveauCard">
+    <div class="niveau-glyph" id="niveauGlyph">◈</div>
+    <div class="niveau-info">
+      <p class="niveau-label">Niveau actuel</p>
+      <p class="niveau-name" id="niveauName">—</p>
+      <p class="niveau-desc" id="niveauDesc">—</p>
+      <div class="niveau-bar-wrap">
+        <div class="niveau-bar-fill" id="niveauBar" style="width:0%"></div>
+      </div>
+    </div>
+    <div class="niveau-progress-wrap">
+      <span class="niveau-days" id="niveauDays">0</span>
+      <span class="niveau-days-label">jours de streak</span>
+      <p class="niveau-next" id="niveauNext"></p>
+    </div>
+  </div>
+</div>
+
+<div class="main-wrap">
+
+  <!-- Check-in -->
+  <div class="checkin-section">
+    <p class="section-title">Check-in quotidien</p>
+    <div class="checkin-card">
+      <div>
+        <p class="checkin-date" id="checkinDate">—</p>
+        <p class="checkin-status" id="checkinStatus">Tu n'as pas encore coché aujourd'hui.</p>
+      </div>
+      <button class="btn-checkin" id="btnCheckin">Marquer aujourd'hui</button>
+    </div>
+  </div>
+
+  <!-- Calendrier -->
+  <div class="calendar-section">
+    <div class="calendar-header">
+      <p class="section-title" style="margin-bottom:0; flex:1">Calendrier 90 jours</p>
+      <div class="calendar-legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:rgba(212,168,67,0.5)"></div> Accompli
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:rgba(192,57,43,0.3)"></div> Manqué
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:rgba(255,255,255,0.04)"></div> Futur
+        </div>
+      </div>
+    </div>
+    <div class="calendar-grid" id="calendarGrid"></div>
+  </div>
+
+  <!-- Niveaux -->
+  <div class="niveaux-section">
+    <p class="section-title">Niveaux Guerrier Toltèque</p>
+    <div class="niveaux-grid" id="niveauxGrid"></div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-section">
+    <p class="section-title">Statistiques</p>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <span class="stat-val" id="statStreak">0</span>
+        <span class="stat-lbl">Streak actuel</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-val" id="statBest">0</span>
+        <span class="stat-lbl">Meilleur streak</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-val" id="statTotal">0</span>
+        <span class="stat-lbl">Jours totaux</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-val" id="statRate">0%</span>
+        <span class="stat-lbl">Taux de réussite</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reset -->
+  <div class="danger-zone">
+    <p class="danger-text">Réinitialiser toute la progression</p>
+    <button class="btn-reset" id="btnReset">Recommencer à zéro</button>
+  </div>
+
+</div>
+
+<footer>OBSIDIAN — La Voie Toltèque</footer>
+
+<script>
+const STORAGE_KEY = 'obsidian_progression';
+
+// ── Niveaux
+const NIVEAUX = [
+  {
+    id: 1, min: 1, max: 7,
+    name: "Apprenti",
+    desc: "Le chemin commence. Chaque accord est un pas.",
+    glyph: "◈",
+    color: "var(--niveau-1)",
+    cssVar: "--niveau-1",
+  },
+  {
+    id: 2, min: 8, max: 29,
+    name: "Guerrier",
+    desc: "Tu tiens ta parole face à toi-même.",
+    glyph: "⚔",
+    color: "var(--niveau-2)",
+    cssVar: "--niveau-2",
+  },
+  {
+    id: 3, min: 30, max: 59,
+    name: "Maître",
+    desc: "La discipline est devenue nature.",
+    glyph: "◉",
+    color: "var(--niveau-3)",
+    cssVar: "--niveau-3",
+  },
+  {
+    id: 4, min: 60, max: Infinity,
+    name: "Nagual",
+    desc: "Tu es au-delà du rêve ordinaire.",
+    glyph: "★",
+    color: "var(--niveau-4)",
+    cssVar: "--niveau-4",
+  },
+];
+
+// ── Couleurs par niveau pour les cellules
+const LEVEL_COLORS = [
+  null,
+  "rgba(91,143,212,0.55)",
+  "rgba(39,174,96,0.55)",
+  "rgba(212,168,67,0.55)",
+  "rgba(142,68,173,0.55)",
+];
+
+// ── Utils
+function todayISO() {
+  return new Date().toISOString().split('T')[0];
+}
+
+function formatFR(iso) {
+  const d = new Date(iso + 'T00:00:00');
+  return d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+}
+
+function formatShortFR(iso) {
+  const d = new Date(iso + 'T00:00:00');
+  return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' });
+}
+
+function addDays(iso, n) {
+  const d = new Date(iso + 'T00:00:00');
+  d.setDate(d.getDate() + n);
+  return d.toISOString().split('T')[0];
+}
+
+function diffDays(a, b) {
+  return Math.round((new Date(b + 'T00:00:00') - new Date(a + 'T00:00:00')) / 86400000);
+}
+
+// ── State
+let state = {
+  startDate: null,
+  checkedDays: [],  // array of ISO date strings
+  bestStreak: 0,
+};
+
+function loadState() {
+  try {
+    const s = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (s) state = s;
+  } catch(e) {}
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+// ── Calculs
+function computeStreak() {
+  if (!state.checkedDays.length) return 0;
+  const today = todayISO();
+  const sorted = [...state.checkedDays].sort().reverse();
+  let streak = 0;
+  let cursor = today;
+  for (const d of sorted) {
+    const diff = diffDays(d, cursor);
+    if (diff === 0 || diff === 1) { streak++; cursor = d; }
+    else break;
+  }
+  return streak;
+}
+
+function computeBestStreak() {
+  if (!state.checkedDays.length) return 0;
+  const sorted = [...state.checkedDays].sort();
+  let best = 1, cur = 1;
+  for (let i = 1; i < sorted.length; i++) {
+    if (diffDays(sorted[i-1], sorted[i]) === 1) { cur++; best = Math.max(best, cur); }
+    else cur = 1;
+  }
+  return best;
+}
+
+function getNiveau(streak) {
+  for (let i = NIVEAUX.length - 1; i >= 0; i--) {
+    if (streak >= NIVEAUX[i].min) return NIVEAUX[i];
+  }
+  return NIVEAUX[0];
+}
+
+// ── Render niveau banner
+function renderNiveauBanner(streak) {
+  if (streak === 0) {
+    document.getElementById('niveauName').textContent = 'Pas encore commencé';
+    document.getElementById('niveauDesc').textContent = 'Fais ton premier check-in pour commencer ta progression.';
+    document.getElementById('niveauGlyph').textContent = '◈';
+    document.getElementById('niveauDays').textContent = '0';
+    document.getElementById('niveauNext').textContent = '';
+    document.getElementById('niveauBar').style.width = '0%';
+    document.getElementById('niveauCard').style.setProperty('--niveau-color', 'rgba(212,168,67,0.3)');
+    return;
+  }
+
+  const n = getNiveau(streak);
+  const card = document.getElementById('niveauCard');
+  card.style.setProperty('--niveau-color', n.color);
+  document.getElementById('niveauGlyph').textContent = n.glyph;
+  document.getElementById('niveauName').textContent = n.name;
+  document.getElementById('niveauDesc').textContent = n.desc;
+  document.getElementById('niveauDays').textContent = streak;
+
+  // Progress in current level
+  let pct, nextText;
+  if (n.max === Infinity) {
+    pct = 100;
+    nextText = `Niveau maximum atteint — ${streak} jours`;
+  } else {
+    const range = n.max - n.min + 1;
+    const pos = streak - n.min + 1;
+    pct = Math.min(100, Math.round((pos / range) * 100));
+    const nextN = NIVEAUX[n.id]; // next niveau
+    const remaining = n.max - streak + 1;
+    nextText = `${remaining}j pour atteindre ${nextN?.name || ''}`;
+  }
+  document.getElementById('niveauBar').style.width = pct + '%';
+  document.getElementById('niveauNext').textContent = nextText;
+}
+
+// ── Render calendar
+function renderCalendar() {
+  const grid = document.getElementById('calendarGrid');
+  grid.innerHTML = '';
+  const today = todayISO();
+  const startRef = state.startDate || today;
+  const checkedSet = new Set(state.checkedDays);
+
+  for (let i = 0; i < 90; i++) {
+    const date = addDays(startRef, i);
+    const cell = document.createElement('div');
+    cell.className = 'day-cell';
+
+    const isPast = date < today;
+    const isToday = date === today;
+    const isDone = checkedSet.has(date);
+
+    // determine level color for done cells
+    let levelColor = LEVEL_COLORS[1];
+    if (isDone) {
+      // compute streak up to this day to color accordingly
+      const daysFromStart = diffDays(startRef, date);
+      const n = getNiveau(Math.min(daysFromStart + 1, 90));
+      levelColor = LEVEL_COLORS[n.id] || LEVEL_COLORS[1];
+    }
+
+    if (isDone) {
+      cell.classList.add('done');
+      cell.style.setProperty('--cell-color', levelColor);
+    } else if (isToday) {
+      cell.classList.add('future');
+    } else if (isPast) {
+      cell.classList.add('missed');
+    } else {
+      cell.classList.add('future');
+    }
+
+    if (isToday) cell.classList.add('today');
+
+    // Tooltip
+    const tip = document.createElement('div');
+    tip.className = 'day-tooltip';
+    tip.textContent = `Jour ${i + 1} — ${formatShortFR(date)}`;
+    cell.appendChild(tip);
+
+    grid.appendChild(cell);
+  }
+}
+
+// ── Render niveaux tiles
+function renderNiveauxGrid(streak) {
+  const grid = document.getElementById('niveauxGrid');
+  grid.innerHTML = '';
+  const current = getNiveau(Math.max(streak, 0));
+
+  NIVEAUX.forEach(n => {
+    const tile = document.createElement('div');
+    tile.className = 'niveau-tile';
+    tile.style.setProperty('--tile-color', n.color);
+
+    const unlocked = streak >= n.min;
+    const isActive = current.id === n.id && streak > 0;
+
+    if (isActive) tile.classList.add('active');
+    else if (unlocked) tile.classList.add('unlocked');
+    else tile.classList.add('locked');
+
+    if (isActive) {
+      const badge = document.createElement('div');
+      badge.className = 'active-badge';
+      tile.appendChild(badge);
+    }
+
+    tile.innerHTML += `
+      <span class="niveau-tile-icon">${n.glyph}</span>
+      <p class="niveau-tile-name">${n.name}</p>
+      <p class="niveau-tile-range">${n.max === Infinity ? n.min + 'j+' : n.min + '–' + n.max + 'j'}</p>
+    `;
+    grid.appendChild(tile);
+  });
+}
+
+// ── Render stats
+function renderStats() {
+  const streak = computeStreak();
+  const best = Math.max(computeBestStreak(), state.bestStreak || 0);
+  const total = state.checkedDays.length;
+
+  // Rate: checked / days since start (capped at 90)
+  let rate = 0;
+  if (state.startDate) {
+    const daysSince = Math.min(diffDays(state.startDate, todayISO()) + 1, 90);
+    rate = daysSince > 0 ? Math.round((total / daysSince) * 100) : 0;
+  }
+
+  document.getElementById('statStreak').textContent = streak;
+  document.getElementById('statBest').textContent = best;
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statRate').textContent = rate + '%';
+}
+
+// ── Render checkin
+function renderCheckin() {
+  const today = todayISO();
+  const done = state.checkedDays.includes(today);
+  document.getElementById('checkinDate').textContent = formatFR(today);
+  const status = document.getElementById('checkinStatus');
+  const btn = document.getElementById('btnCheckin');
+
+  if (done) {
+    status.textContent = 'Check-in accompli ✓';
+    status.className = 'checkin-status done';
+    btn.disabled = true;
+    btn.textContent = 'Déjà coché';
+  } else {
+    status.textContent = "Tu n'as pas encore coché aujourd'hui.";
+    status.className = 'checkin-status';
+    btn.disabled = false;
+    btn.textContent = "Marquer aujourd'hui";
+  }
+}
+
+// ── Full render
+function render() {
+  const streak = computeStreak();
+  renderNiveauBanner(streak);
+  renderCalendar();
+  renderNiveauxGrid(streak);
+  renderStats();
+  renderCheckin();
+}
+
+// ── Check-in action
+document.getElementById('btnCheckin').addEventListener('click', () => {
+  const today = todayISO();
+  if (state.checkedDays.includes(today)) return;
+
+  if (!state.startDate) state.startDate = today;
+  state.checkedDays.push(today);
+
+  // Update best streak
+  const s = computeStreak();
+  if (s > (state.bestStreak || 0)) state.bestStreak = s;
+
+  saveState();
+  render();
+
+  // Flash feedback
+  const btn = document.getElementById('btnCheckin');
+  btn.textContent = 'Accord tenu ✓';
+  setTimeout(() => renderCheckin(), 1500);
+});
+
+// ── Reset
+document.getElementById('btnReset').addEventListener('click', () => {
+  if (!confirm('Réinitialiser toute la progression ? Cette action est irréversible.')) return;
+  state = { startDate: null, checkedDays: [], bestStreak: 0 };
+  saveState();
+  render();
+});
+
+// ── Init
+loadState();
+render();
+</script>
+</body>
+</html>

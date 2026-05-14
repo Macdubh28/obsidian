@@ -7,33 +7,47 @@
 <meta name="description" content="Plateforme de sagesse toltèque. Les 5 Accords selon don Miguel Ruiz.">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0a0a0a">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
---or:#d4a843;
---or-dim:rgba(212,168,67,0.18);
---or-subtle:rgba(212,168,67,0.07);
---pierre:#f0e8d0;
---noir:#0a0a0a;
---noir2:#0d0d0d;
---texte:rgba(240,232,208,0.75);
+  --or:#d4a843;
+  --or-dim:rgba(212,168,67,0.18);
+  --or-subtle:rgba(212,168,67,0.07);
+  --or-sombre:#8a6a20;
+  --pierre:#f0e8d0;
+  --noir:#0a0a0a;
+  --noir2:#0d0d0d;
+  --noir3:#111111;
+  --texte:rgba(240,232,208,0.75);
+  --niveau-1:#5b8fd4;
+  --niveau-2:#27ae60;
+  --niveau-3:#d4a843;
+  --niveau-4:#8e44ad;
 }
 html{scroll-behavior:smooth;}
 body{background:var(--noir);color:var(--pierre);font-family:'Crimson Text',serif;min-height:100vh;}
-
-/* NAV */
 nav{display:flex;justify-content:space-between;align-items:center;padding:18px 40px;border-bottom:0.5px solid rgba(212,168,67,0.2);position:sticky;top:0;background:rgba(10,10,10,0.97);z-index:100;backdrop-filter:blur(8px);}
 .logo-row{display:flex;align-items:center;gap:12px;}
-.logo-circle{width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(212,168,67,0.6);background:var(--or-dim);display:flex;align-items:center;justify-content:center;overflow:hidden;}
-.logo-circle img{width:100%;height:100%;object-fit:cover;}
-.logo-eagle-svg{font-size:20px;color:var(--or);}
+.logo-circle{width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(212,168,67,0.6);background:var(--or-dim);display:flex;align-items:center;justify-content:center;}
 .site-name{font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:0.2em;color:var(--or);text-transform:uppercase;}
 .nav-links{display:flex;gap:28px;}
 .nav-links a{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;color:rgba(212,168,67,0.5);text-decoration:none;text-transform:uppercase;transition:color 0.2s;}
 .nav-links a:hover{color:var(--or);}
-
-/* HERO */
+.nav-links a.nav-new{color:rgba(212,168,67,0.75);border-bottom:0.5px solid rgba(212,168,67,0.35);}
+.dashboard{background:var(--noir3);border-bottom:0.5px solid rgba(212,168,67,0.12);padding:14px 40px;display:flex;align-items:center;gap:0;overflow:hidden;}
+.dash-item{display:flex;align-items:center;gap:10px;padding:0 24px;border-right:0.5px solid rgba(212,168,67,0.1);flex-shrink:0;}
+.dash-item:first-child{padding-left:0;}
+.dash-label{font-family:'Cinzel',serif;font-size:8px;letter-spacing:0.25em;color:rgba(212,168,67,0.35);text-transform:uppercase;display:block;margin-bottom:2px;}
+.dash-value{font-family:'Cinzel',serif;font-size:16px;font-weight:700;color:var(--or);line-height:1;}
+.dash-value.dash-niveau{font-size:13px;letter-spacing:0.08em;}
+.dash-glyph{font-size:18px;color:var(--or);opacity:0.55;flex-shrink:0;}
+.dash-bar-wrap{flex:1;min-width:120px;padding-left:24px;}
+.dash-bar-label{font-family:'Cinzel',serif;font-size:8px;letter-spacing:0.2em;color:rgba(212,168,67,0.3);text-transform:uppercase;margin-bottom:5px;}
+.dash-bar-track{height:2px;background:rgba(212,168,67,0.08);position:relative;}
+.dash-bar-fill{height:100%;background:var(--dash-color,var(--or));width:0%;transition:width 0.8s ease;}
+.dash-bar-sub{font-family:'Cinzel',serif;font-size:8px;letter-spacing:0.1em;color:rgba(212,168,67,0.25);margin-top:4px;}
+.dash-link{margin-left:auto;font-family:'Cinzel',serif;font-size:8px;letter-spacing:0.2em;color:rgba(212,168,67,0.3);text-decoration:none;text-transform:uppercase;padding-left:24px;flex-shrink:0;transition:color 0.2s;}
 .hero{position:relative;min-height:480px;display:flex;align-items:center;padding:80px 40px;overflow:hidden;}
 .hero-glow{position:absolute;right:10%;top:50%;transform:translateY(-50%);width:400px;height:400px;background:radial-gradient(ellipse,rgba(212,168,67,0.06) 0%,transparent 70%);pointer-events:none;}
 .hero-eagle-placeholder{position:absolute;right:0;top:0;bottom:0;width:42%;background:linear-gradient(135deg,#1a1408 0%,#0d0d0d 100%);display:flex;align-items:center;justify-content:center;mask-image:linear-gradient(to left,rgba(0,0,0,0.95) 40%,transparent 100%);-webkit-mask-image:linear-gradient(to left,rgba(0,0,0,0.95) 40%,transparent 100%);}
@@ -44,9 +58,6 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:18px 4
 .hero-title span{color:var(--or);}
 .hero-subtitle{font-family:'Crimson Text',serif;font-size:18px;font-style:italic;color:var(--texte);line-height:1.7;margin-bottom:32px;}
 .hero-cta{display:inline-block;padding:12px 32px;border:1px solid rgba(212,168,67,0.45);color:var(--or);font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;border-radius:2px;background:var(--or-subtle);transition:all 0.2s;}
-.hero-cta:hover{background:var(--or-dim);border-color:var(--or);}
-
-/* ACCORDS GRID */
 .accords-section{padding:60px 40px;}
 .section-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;color:rgba(212,168,67,0.4);text-transform:uppercase;margin-bottom:40px;text-align:center;}
 .accords-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:rgba(212,168,67,0.08);}
@@ -56,64 +67,45 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:18px 4
 .accord-icon{font-size:22px;color:rgba(212,168,67,0.4);margin-bottom:12px;display:block;}
 .accord-name{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.1em;color:var(--pierre);text-transform:uppercase;display:block;margin-bottom:8px;line-height:1.5;}
 .accord-desc{font-family:'Crimson Text',serif;font-size:13px;font-style:italic;color:var(--texte);line-height:1.5;}
-
-/* CITATION DU JOUR */
-.citation-section{padding:60px 40px;border-top:0.5px solid rgba(212,168,67,0.1);border-bottom:0.5px solid rgba(212,168,67,0.1);text-align:center;}
+.citation-section{padding:60px 40px;border-top:0.5px solid rgba(212,168,67,0.1);border-bottom:0.5px solid rgba(212,168,67,0.1);text-align:center;position:relative;overflow:hidden;}
+.citation-bg{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(212,168,67,0.03) 0%,transparent 70%);pointer-events:none;}
 .citation-ornement{font-family:'Cinzel',serif;font-size:60px;color:rgba(212,168,67,0.1);line-height:0.8;margin-bottom:20px;}
-.citation-texte{font-family:'Crimson Text',serif;font-size:22px;font-style:italic;color:var(--pierre);max-width:640px;margin:0 auto 16px;line-height:1.7;}
+.citation-accord-tag{font-family:'Cinzel',serif;font-size:8px;letter-spacing:0.3em;text-transform:uppercase;margin-bottom:20px;display:inline-block;padding:4px 14px;border:0.5px solid rgba(212,168,67,0.2);color:rgba(212,168,67,0.5);}
+.citation-texte{font-family:'Crimson Text',serif;font-size:22px;font-style:italic;color:var(--pierre);max-width:640px;margin:0 auto 16px;line-height:1.7;transition:opacity 0.4s;}
 .citation-source{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;color:rgba(212,168,67,0.5);text-transform:uppercase;}
-
-/* OUTILS */
+.citation-nav{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:28px;}
+.citation-dot-wrap{display:flex;gap:6px;align-items:center;}
+.citation-dot{width:5px;height:5px;border-radius:50%;background:rgba(212,168,67,0.15);cursor:pointer;transition:background 0.2s;}
+.citation-dot.active{background:rgba(212,168,67,0.6);}
+.citation-btn{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;color:rgba(212,168,67,0.4);text-transform:uppercase;cursor:pointer;background:none;border:none;padding:4px 8px;transition:color 0.2s;}
 .outils-section{padding:60px 40px;}
 .outils-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:32px;}
-.outil-card{background:var(--noir2);border:0.5px solid rgba(212,168,67,0.12);border-radius:4px;padding:24px;text-decoration:none;transition:border-color 0.2s;}
+.outil-card{background:var(--noir2);border:0.5px solid rgba(212,168,67,0.12);border-radius:4px;padding:24px;text-decoration:none;transition:border-color 0.2s;display:block;}
 .outil-card:hover{border-color:rgba(212,168,67,0.35);}
+.outil-card.outil-featured{border-color:rgba(212,168,67,0.25);background:rgba(212,168,67,0.04);}
 .outil-icon{font-size:24px;color:var(--or);margin-bottom:12px;display:block;opacity:0.6;}
 .outil-name{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.12em;color:var(--pierre);text-transform:uppercase;display:block;margin-bottom:6px;}
+.outil-badge{display:inline-block;font-family:'Cinzel',serif;font-size:7px;letter-spacing:0.2em;text-transform:uppercase;color:var(--or);border:0.5px solid rgba(212,168,67,0.3);padding:2px 8px;margin-bottom:8px;}
 .outil-desc{font-family:'Crimson Text',serif;font-size:13px;color:var(--texte);line-height:1.5;}
-
-/* FOOTER */
 footer{padding:32px 40px;border-top:0.5px solid rgba(212,168,67,0.1);display:flex;justify-content:space-between;align-items:center;}
 .footer-tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;color:rgba(212,168,67,0.3);text-transform:uppercase;}
-
-/* MOBILE */
-@media(max-width:768px){
-nav{padding:14px 20px;}
-.nav-links{display:none;}
-.hero{padding:60px 20px;min-height:360px;}
-.hero-title{font-size:34px;}
-.hero-eagle-placeholder{width:35%;}
-.accords-section{padding:40px 20px;}
-.accords-grid{grid-template-columns:repeat(2,1fr);}
-.citation-section{padding:40px 20px;}
-.outils-section{padding:40px 20px;}
-footer{padding:24px 20px;flex-direction:column;gap:8px;text-align:center;}
-}
+@media(max-width:768px){nav{padding:14px 20px;}.nav-links{display:none;}.dashboard{padding:12px 20px;flex-wrap:wrap;gap:12px;}.dash-item{padding:0 16px;border-right:none;border-bottom:0.5px solid rgba(212,168,67,0.08);padding-bottom:10px;width:calc(50% - 8px);}.dash-bar-wrap{width:100%;padding-left:0;}.dash-link{width:100%;padding-left:0;text-align:center;padding-top:8px;}.hero{padding:60px 20px;min-height:360px;}.hero-title{font-size:34px;}.hero-eagle-placeholder{width:35%;}.accords-section,.citation-section,.outils-section{padding:40px 20px;}.accords-grid{grid-template-columns:repeat(2,1fr);}footer{padding:24px 20px;flex-direction:column;gap:8px;text-align:center;}}
 </style>
 </head>
 <body>
-
 <nav>
-  <div class="logo-row">
-    <div class="logo-circle">
-      <span style="font-size:22px;color:var(--or);">🦅</span>
-    </div>
-    <span class="site-name">Obsidian</span>
-  </div>
-  <div class="nav-links">
-    <a href="accord-1.html">Les Accords</a>
-    <a href="citations.html">Citations</a>
-    <a href="journal.html">Journal</a>
-    <a href="meditation.html">Méditation</a>
-    <a href="progression.html">Progression</a>
-  </div>
+  <div class="logo-row"><div class="logo-circle"><span style="font-size:22px;color:var(--or);">🦅</span></div><span class="site-name">Obsidian</span></div>
+  <div class="nav-links"><a href="accord-1.html">Les Accords</a><a href="citations.html">Citations</a><a href="journal.html">Journal</a><a href="meditation.html">Méditation</a><a href="progression.html">Progression</a><a href="convergence.html" class="nav-new">Convergence</a></div>
 </nav>
-
+<div class="dashboard" id="dashboard">
+  <div class="dash-item"><span class="dash-glyph" id="dashGlyph">◈</span><div><span class="dash-label">Streak</span><span class="dash-value" id="dashStreak">—</span></div></div>
+  <div class="dash-item"><div><span class="dash-label">Niveau</span><span class="dash-value dash-niveau" id="dashNiveau">—</span></div></div>
+  <div class="dash-bar-wrap"><div class="dash-bar-label" id="dashBarLabel">Progression vers le prochain niveau</div><div class="dash-bar-track"><div class="dash-bar-fill" id="dashBarFill"></div></div><div class="dash-bar-sub" id="dashBarSub"></div></div>
+  <a href="progression.html" class="dash-link">Voir la progression →</a>
+</div>
 <section class="hero">
   <div class="hero-glow"></div>
-  <div class="hero-eagle-placeholder">
-    <div class="eagle-icon-large">🦅</div>
-  </div>
+  <div class="hero-eagle-placeholder"><div class="eagle-icon-large">🦅</div></div>
   <div class="hero-content">
     <p class="eyebrow">Sagesse Toltèque · Macdubh · Ghost Ecosystem VII</p>
     <h1 class="hero-title">Les <span>5 Accords</span><br>Toltèques</h1>
@@ -121,98 +113,48 @@ footer{padding:24px 20px;flex-direction:column;gap:8px;text-align:center;}
     <a href="accord-1.html" class="hero-cta">Commencer la pratique</a>
   </div>
 </section>
-
 <section class="accords-section">
   <p class="section-label">Les cinq accords · don Miguel Ruiz</p>
   <div class="accords-grid">
-    <a href="accord-1.html" class="accord-card">
-      <span class="accord-num">I</span>
-      <span class="accord-icon">💬</span>
-      <span class="accord-name">Parole Impeccable</span>
-      <span class="accord-desc">Que ta parole soit impeccable. Parle avec intégrité.</span>
-    </a>
-    <a href="accord-2.html" class="accord-card">
-      <span class="accord-num">II</span>
-      <span class="accord-icon">🛡</span>
-      <span class="accord-name">Ne rien prendre personnellement</span>
-      <span class="accord-desc">Ce que les autres font n'est pas à cause de toi.</span>
-    </a>
-    <a href="accord-3.html" class="accord-card">
-      <span class="accord-num">III</span>
-      <span class="accord-icon">🔍</span>
-      <span class="accord-name">Ne pas faire de suppositions</span>
-      <span class="accord-desc">Trouve le courage de poser les questions.</span>
-    </a>
-    <a href="accord-4.html" class="accord-card">
-      <span class="accord-num">IV</span>
-      <span class="accord-icon">🔥</span>
-      <span class="accord-name">Toujours faire de son mieux</span>
-      <span class="accord-desc">Ton mieux change d'un moment à l'autre.</span>
-    </a>
-    <a href="accord-5.html" class="accord-card">
-      <span class="accord-num">V</span>
-      <span class="accord-icon">👁</span>
-      <span class="accord-name">Sceptique mais à l'écoute</span>
-      <span class="accord-desc">Ne te crois pas toi-même ni les autres aveuglément.</span>
-    </a>
+    <a href="accord-1.html" class="accord-card"><span class="accord-num">I</span><span class="accord-icon">💬</span><span class="accord-name">Parole Impeccable</span><span class="accord-desc">Que ta parole soit impeccable. Parle avec intégrité.</span></a>
+    <a href="accord-2.html" class="accord-card"><span class="accord-num">II</span><span class="accord-icon">🛡</span><span class="accord-name">Ne rien prendre personnellement</span><span class="accord-desc">Ce que les autres font n'est pas à cause de toi.</span></a>
+    <a href="accord-3.html" class="accord-card"><span class="accord-num">III</span><span class="accord-icon">🔍</span><span class="accord-name">Ne pas faire de suppositions</span><span class="accord-desc">Trouve le courage de poser les questions.</span></a>
+    <a href="accord-4.html" class="accord-card"><span class="accord-num">IV</span><span class="accord-icon">🔥</span><span class="accord-name">Toujours faire de son mieux</span><span class="accord-desc">Ton mieux change d'un moment à l'autre.</span></a>
+    <a href="accord-5.html" class="accord-card"><span class="accord-num">V</span><span class="accord-icon">👁</span><span class="accord-name">Sceptique mais à l'écoute</span><span class="accord-desc">Ne te crois pas toi-même ni les autres aveuglément.</span></a>
   </div>
 </section>
-
 <section class="citation-section">
+  <div class="citation-bg"></div>
   <div class="citation-ornement">"</div>
-  <p class="citation-texte" id="citation-du-jour">Soyez impeccable avec votre parole. Parlez avec intégrité. Ne dites que ce que vous pensez vraiment.</p>
-  <p class="citation-source">— don Miguel Ruiz · Les 4 Accords Toltèques</p>
+  <div class="citation-accord-tag" id="citationAccordTag">Accord I</div>
+  <p class="citation-texte" id="citation-du-jour">…</p>
+  <p class="citation-source" id="citation-source">— don Miguel Ruiz</p>
+  <div class="citation-nav"><button class="citation-btn" id="citPrev">←</button><div class="citation-dot-wrap" id="citDots"></div><button class="citation-btn" id="citNext">→</button></div>
 </section>
-
 <section class="outils-section">
   <p class="section-label">Outils de pratique</p>
   <div class="outils-grid">
-    <a href="journal.html" class="outil-card">
-      <span class="outil-icon">📓</span>
-      <span class="outil-name">Journal</span>
-      <span class="outil-desc">Consigne ta pratique quotidienne des accords.</span>
-    </a>
-    <a href="meditation.html" class="outil-card">
-      <span class="outil-icon">🌑</span>
-      <span class="outil-name">Mode Méditation</span>
-      <span class="outil-desc">Interface épurée. Un accord. Le silence.</span>
-    </a>
-    <a href="progression.html" class="outil-card">
-      <span class="outil-icon">📈</span>
-      <span class="outil-name">Progression</span>
-      <span class="outil-desc">Tracker 30/60/90 jours. Guerrier Toltèque.</span>
-    </a>
-    <a href="citations.html" class="outil-card">
-      <span class="outil-icon">✦</span>
-      <span class="outil-name">Citations</span>
-      <span class="outil-desc">40+ citations filtrables par accord et par livre.</span>
-    </a>
+    <a href="journal.html" class="outil-card"><span class="outil-icon">📓</span><span class="outil-name">Journal</span><span class="outil-desc">Consigne ta pratique quotidienne des accords.</span></a>
+    <a href="meditation.html" class="outil-card"><span class="outil-icon">🌑</span><span class="outil-name">Mode Méditation</span><span class="outil-desc">Interface épurée. Un accord. Le silence.</span></a>
+    <a href="progression.html" class="outil-card"><span class="outil-icon">📈</span><span class="outil-name">Progression</span><span class="outil-desc">Tracker 30/60/90 jours. Guerrier Toltèque.</span></a>
+    <a href="citations.html" class="outil-card"><span class="outil-icon">✦</span><span class="outil-name">Citations</span><span class="outil-desc">40 citations filtrables par accord et par livre.</span></a>
+    <a href="convergence.html" class="outil-card outil-featured"><span class="outil-icon">⚖</span><span class="outil-name">Convergence</span><span class="outil-badge">Nouveau</span><span class="outil-desc">Les Deux Voies — Accords Toltèques ↔ Stoïcisme.</span></a>
   </div>
 </section>
-
-<footer>
-  <span class="footer-tag">Ghost Ecosystem · Platform VII · Macdubh28</span>
-  <span class="footer-tag">@AigleRoyal28 · Obsidian</span>
-</footer>
-
+<footer><span class="footer-tag">Ghost Ecosystem · Platform VII · Macdubh28</span><span class="footer-tag">@AigleRoyal28 · Obsidian</span></footer>
 <script>
-const citations=[
-"Soyez impeccable avec votre parole. Parlez avec intégrité.",
-"Rien de ce que les autres font n'est à cause de vous.",
-"Ne faites pas de suppositions. Trouvez le courage de poser les questions.",
-"Faites toujours de votre mieux. Votre mieux changera d'un moment à l'autre.",
-"Soyez sceptique, mais apprenez à écouter."
-];
-const sources=[
-"don Miguel Ruiz · 1er Accord",
-"don Miguel Ruiz · 2e Accord",
-"don Miguel Ruiz · 3e Accord",
-"don Miguel Ruiz · 4e Accord",
-"don Miguel Ruiz & don Jose Ruiz · 5e Accord"
-];
-const idx=Math.floor(Date.now()/86400000)%citations.length;
-document.getElementById('citation-du-jour').textContent=citations[idx];
-document.querySelector('.citation-source').textContent='— '+sources[idx];
+const CITATIONS=[{accord:1,nom:"Accord I",texte:"Soyez impeccable avec votre parole. Parlez avec intégrité.",source:"Don Miguel Ruiz"},{accord:1,nom:"Accord I",texte:"La parole est un outil. Elle peut créer le plus beau rêve ou détruire tout ce qui vous entoure.",source:"Don Miguel Ruiz"},{accord:1,nom:"Accord I",texte:"Votre parole est le pouvoir que vous avez pour créer.",source:"Don Miguel Ruiz — Les 4 Accords Toltèques"},{accord:1,nom:"Accord I",texte:"Impeccable signifie sans péché. Un péché est tout ce que vous faites qui va à l'encontre de vous-même.",source:"Don Miguel Ruiz"},{accord:1,nom:"Accord I",texte:"Les commérages sont de la magie noire de la pire espèce.",source:"Don Miguel Ruiz"},{accord:1,nom:"Accord I",texte:"La parole impeccable vous purifie de tout poison émotionnel.",source:"Don Miguel Ruiz"},{accord:1,nom:"Accord I",texte:"Utilisez la parole dans le sens de la vérité et de l'amour.",source:"Don Miguel Ruiz"},{accord:1,nom:"Accord I",texte:"Vous vous programmez avec chaque mot prononcé. Ce que vous dites à voix haute devient votre réalité intérieure.",source:"Don Miguel Ruiz — La Maîtrise de l'Amour"},{accord:2,nom:"Accord II",texte:"Ne faites aucune supposition. Trouvez le courage de poser les questions.",source:"Don Miguel Ruiz"},{accord:2,nom:"Accord II",texte:"Toutes nos tristesses et drames viennent de suppositions.",source:"Don Miguel Ruiz"},{accord:2,nom:"Accord II",texte:"Le problème avec les suppositions, c'est que nous croyons qu'elles sont la vérité.",source:"Don Miguel Ruiz"},{accord:2,nom:"Accord II",texte:"Communiquez clairement avec les autres pour éviter la tristesse et les malentendus.",source:"Don Miguel Ruiz"},{accord:2,nom:"Accord II",texte:"Nous supposons que les autres pensent comme nous pensons. Voilà le piège.",source:"Don Miguel Ruiz"},{accord:2,nom:"Accord II",texte:"Posez des questions. C'est l'acte de courage le plus simple et le plus transformateur.",source:"Don Miguel Ruiz"},{accord:2,nom:"Accord II",texte:"La clarté dans la communication est une forme de respect profond.",source:"Don Miguel Ruiz"},{accord:2,nom:"Accord II",texte:"Ne supposez pas que vous savez ce que quelqu'un pense.",source:"Don Miguel Ruiz"},{accord:3,nom:"Accord III",texte:"Ne prenez rien personnellement. Ce que les autres font, c'est leur propre réalité.",source:"Don Miguel Ruiz"},{accord:3,nom:"Accord III",texte:"Rien de ce que les autres font n'est à cause de vous. C'est à cause d'eux-mêmes.",source:"Don Miguel Ruiz"},{accord:3,nom:"Accord III",texte:"Même les opinions que vous avez de vous-même ne sont pas nécessairement vraies.",source:"Don Miguel Ruiz"},{accord:3,nom:"Accord III",texte:"Lorsque vous ne prenez rien personnellement, vous êtes immunisé contre les venins émotionnels.",source:"Don Miguel Ruiz"},{accord:3,nom:"Accord III",texte:"Chaque personne vit dans son propre rêve. Ce qu'elle projette n'a rien à voir avec votre valeur réelle.",source:"Don Miguel Ruiz"},{accord:3,nom:"Accord III",texte:"Le second accord est la liberté. Personne ne peut vous atteindre si vous ne lui prêtez pas cette arme.",source:"Don Miguel Ruiz"},{accord:3,nom:"Accord III",texte:"Même si quelqu'un vous dit que vous êtes merveilleux — ne le prenez pas personnellement.",source:"Don Miguel Ruiz"},{accord:3,nom:"Accord III",texte:"Ce que les autres pensent de vous ne vous appartient pas.",source:"Don Miguel Ruiz"},{accord:3,nom:"Accord III",texte:"Si quelqu'un vous insulte, ne le prenez pas personnellement.",source:"Don Miguel Ruiz"},{accord:4,nom:"Accord IV",texte:"Faites toujours de votre mieux. Cela changera d'un moment à l'autre.",source:"Don Miguel Ruiz"},{accord:4,nom:"Accord IV",texte:"Votre mieux variera selon les circonstances. Il sera différent selon votre état.",source:"Don Miguel Ruiz"},{accord:4,nom:"Accord IV",texte:"Faites de votre mieux, et vous éviterez de vous juger et de vous punir.",source:"Don Miguel Ruiz"},{accord:4,nom:"Accord IV",texte:"Lorsque vous faites de votre mieux, vous apprenez à accepter ce que vous êtes.",source:"Don Miguel Ruiz"},{accord:4,nom:"Accord IV",texte:"L'action est ce qui vous fait vivre intensément, ce qui vous donne la joie d'être vivant.",source:"Don Miguel Ruiz"},{accord:4,nom:"Accord IV",texte:"Si vous faites de votre mieux, la culpabilité et le remords n'ont plus de prise sur vous.",source:"Don Miguel Ruiz"},{accord:4,nom:"Accord IV",texte:"Le mieux dans un mauvais jour vaut mieux que le moins dans un bon jour.",source:"Don Miguel Ruiz"},{accord:4,nom:"Accord IV",texte:"Faire de son mieux, c'est vivre pleinement dans le présent.",source:"Don Miguel Ruiz"},{accord:5,nom:"Accord V",texte:"Soyez sceptique, mais apprenez à écouter.",source:"Don Miguel Ruiz — Le 5e Accord"},{accord:5,nom:"Accord V",texte:"Le scepticisme intelligent est l'outil le plus puissant pour briser les croyances limitantes.",source:"Don Miguel Ruiz"},{accord:5,nom:"Accord V",texte:"Douter, c'est ne pas croire aveuglément. Chercher la vérité, c'est aller au-delà des mots.",source:"Don Miguel Ruiz"},{accord:5,nom:"Accord V",texte:"Les mots ne sont que des symboles. Le vrai message est derrière les symboles.",source:"Don Miguel Ruiz"},{accord:5,nom:"Accord V",texte:"Ne croyez pas ce que vous avez entendu ou lu. Vérifiez par vous-même.",source:"Don Miguel Ruiz"},{accord:5,nom:"Accord V",texte:"Chaque être humain est un conteur. Ses histoires ne sont pas la vérité absolue.",source:"Don Miguel Ruiz"},{accord:5,nom:"Accord V",texte:"Le vrai sceptique écoute, mais ne laisse pas les mots des autres dicter sa vision du monde.",source:"Don Miguel Ruiz"}];
+const ACCORD_COLORS={1:'#c0392b',2:'#2980b9',3:'#27ae60',4:'#d4a843',5:'#8e44ad'};
+let citIdx=Math.floor(Date.now()/86400000)%CITATIONS.length;
+function renderCitation(idx,animate){const c=CITATIONS[idx];const el=document.getElementById('citation-du-jour');const tag=document.getElementById('citationAccordTag');const src=document.getElementById('citation-source');if(animate){el.style.opacity='0';}setTimeout(()=>{el.textContent=c.texte;src.textContent='— '+c.source;tag.textContent=c.nom;tag.style.borderColor=ACCORD_COLORS[c.accord]+'55';tag.style.color=ACCORD_COLORS[c.accord];if(animate)el.style.opacity='1';},animate?200:0);const dots=document.getElementById('citDots');dots.innerHTML='';const total=Math.min(7,CITATIONS.length);const start=Math.max(0,Math.min(idx-3,CITATIONS.length-total));for(let i=start;i<start+total;i++){const d=document.createElement('span');d.className='citation-dot'+(i===idx?' active':'');d.addEventListener('click',()=>{citIdx=i;renderCitation(citIdx,true);});dots.appendChild(d);}}
+document.getElementById('citPrev').addEventListener('click',()=>{citIdx=(citIdx-1+CITATIONS.length)%CITATIONS.length;renderCitation(citIdx,true);});
+document.getElementById('citNext').addEventListener('click',()=>{citIdx=(citIdx+1)%CITATIONS.length;renderCitation(citIdx,true);});
+renderCitation(citIdx,false);
+setInterval(()=>{citIdx=(citIdx+1)%CITATIONS.length;renderCitation(citIdx,true);},12000);
+const NIVEAUX=[{id:1,min:1,max:7,name:"Apprenti",glyph:"◈",color:"#5b8fd4"},{id:2,min:8,max:29,name:"Guerrier",glyph:"⚔",color:"#27ae60"},{id:3,min:30,max:59,name:"Maître",glyph:"◉",color:"#d4a843"},{id:4,min:60,max:Infinity,name:"Nagual",glyph:"★",color:"#8e44ad"}];
+function getNiveau(s){for(let i=NIVEAUX.length-1;i>=0;i--){if(s>=NIVEAUX[i].min)return NIVEAUX[i];}return null;}
+function computeStreak(days){if(!days||!days.length)return 0;const today=new Date().toISOString().split('T')[0];const sorted=[...days].sort().reverse();let streak=0,cursor=today;for(const d of sorted){const diff=Math.round((new Date(cursor+'T00:00:00')-new Date(d+'T00:00:00'))/86400000);if(diff===0||diff===1){streak++;cursor=d;}else break;}return streak;}
+(function(){try{const raw=localStorage.getItem('obsidian_progression');const state=raw?JSON.parse(raw):null;const streak=state?computeStreak(state.checkedDays):0;const dS=document.getElementById('dashStreak');const dN=document.getElementById('dashNiveau');const dG=document.getElementById('dashGlyph');const dF=document.getElementById('dashBarFill');const dL=document.getElementById('dashBarLabel');const dB=document.getElementById('dashBarSub');if(streak===0){dS.textContent='0 jour';dN.textContent='Pas encore commencé';dG.textContent='◈';dL.textContent='Lance ton premier check-in';return;}const n=getNiveau(streak);dS.textContent=streak+(streak>1?' jours':' jour');dN.textContent=n.glyph+' '+n.name;dG.textContent=n.glyph;dG.style.color=n.color;dN.style.color=n.color;dF.style.background=n.color;let pct,sub;if(n.max===Infinity){pct=100;sub='Niveau maximum — Nagual';}else{const range=n.max-n.min+1;const pos=streak-n.min+1;pct=Math.min(100,Math.round((pos/range)*100));const next=NIVEAUX[n.id];const rem=n.max-streak+1;sub=next?rem+'j pour '+next.name:'';}dF.style.width=pct+'%';dL.textContent='Progression · '+n.name;dB.textContent=sub;}catch(e){}})();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js');});}
 </script>
 </body>

@@ -7,679 +7,233 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --noir: #0a0a0a;
-    --noir-2: #111111;
-    --noir-3: #1a1a1a;
-    --or: #d4a843;
-    --or-pale: #e8c97a;
-    --or-sombre: #8a6a20;
-    --blanc: #f0ebe0;
-    --gris: #666;
-    --gris-clair: #999;
-    --accord-1: #c0392b;
-    --accord-2: #2980b9;
-    --accord-3: #27ae60;
-    --accord-4: #8e44ad;
-    --accord-5: #d4a843;
-    --danger: #c0392b;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--noir);
-    color: var(--blanc);
-    font-family: 'Crimson Text', Georgia, serif;
-    font-size: 18px;
-    line-height: 1.7;
-    min-height: 100vh;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.4;
-  }
-
-  /* ─── HEADER ─── */
-  header {
-    position: relative;
-    text-align: center;
-    padding: 80px 24px 60px;
-    border-bottom: 1px solid rgba(212, 168, 67, 0.15);
-  }
-
-  header::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 50%;
-    transform: translateX(-50%);
-    width: 120px; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--or), transparent);
-  }
-
-  .nav-back {
-    position: absolute;
-    top: 32px; left: 32px;
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    color: var(--or-sombre);
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
-  .nav-back:hover { color: var(--or); }
-
-  .eyebrow {
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 0.35em;
-    color: var(--or-sombre);
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-
-  h1 {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 900;
-    color: var(--or);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    line-height: 1.1;
-    margin-bottom: 16px;
-  }
-
-  .subtitle {
-    font-family: 'Crimson Text', serif;
-    font-style: italic;
-    font-size: 1.1rem;
-    color: rgba(240, 235, 224, 0.5);
-  }
-
-  /* ─── LAYOUT ─── */
-  .main-layout {
-    position: relative;
-    z-index: 1;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 48px 24px 80px;
-    display: grid;
-    grid-template-columns: 1fr 380px;
-    gap: 40px;
-    align-items: start;
-  }
-
-  /* ─── EDITOR PANEL ─── */
-  .editor-panel {}
-
-  .panel-title {
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    color: var(--or-sombre);
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .panel-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: rgba(212, 168, 67, 0.15);
-  }
-
-  /* Date + accord row */
-  .entry-meta {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 16px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .date-display {
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    color: var(--or);
-    text-transform: uppercase;
-    padding: 8px 16px;
-    border: 1px solid rgba(212, 168, 67, 0.25);
-    background: var(--noir-2);
-  }
-
-  .accord-select {
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    background: var(--noir-2);
-    border: 1px solid rgba(212, 168, 67, 0.25);
-    color: var(--blanc);
-    padding: 8px 16px;
-    outline: none;
-    cursor: pointer;
-    transition: border-color 0.3s;
-    appearance: none;
-    -webkit-appearance: none;
-  }
-
-  .accord-select:focus { border-color: rgba(212, 168, 67, 0.5); }
-
-  option { background: var(--noir-2); }
-
-  /* Textarea */
-  .entry-textarea {
-    width: 100%;
-    min-height: 280px;
-    background: var(--noir-2);
-    border: 1px solid rgba(212, 168, 67, 0.2);
-    color: var(--blanc);
-    font-family: 'Crimson Text', serif;
-    font-size: 1.1rem;
-    line-height: 1.8;
-    padding: 24px;
-    outline: none;
-    resize: vertical;
-    transition: border-color 0.3s;
-    letter-spacing: 0.02em;
-  }
-
-  .entry-textarea::placeholder {
-    color: var(--gris);
-    font-style: italic;
-  }
-
-  .entry-textarea:focus {
-    border-color: rgba(212, 168, 67, 0.4);
-  }
-
-  /* Char count */
-  .char-count {
-    font-family: 'Cinzel', serif;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    color: var(--gris);
-    text-transform: uppercase;
-    text-align: right;
-    margin-top: 8px;
-    margin-bottom: 16px;
-  }
-
-  /* Buttons */
-  .btn-row {
-    display: flex;
-    gap: 12px;
-  }
-
-  .btn-primary {
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    padding: 12px 32px;
-    background: var(--or);
-    border: 1px solid var(--or);
-    color: var(--noir);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 600;
-  }
-
-  .btn-primary:hover {
-    background: var(--or-pale);
-    border-color: var(--or-pale);
-  }
-
-  .btn-secondary {
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    padding: 12px 24px;
-    background: transparent;
-    border: 1px solid rgba(212, 168, 67, 0.25);
-    color: rgba(240, 235, 224, 0.5);
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .btn-secondary:hover {
-    border-color: rgba(212, 168, 67, 0.5);
-    color: var(--blanc);
-  }
-
-  /* Save feedback */
-  .save-feedback {
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accord-3);
-    margin-top: 12px;
-    height: 16px;
-    transition: opacity 0.5s;
-    opacity: 0;
-  }
-
-  .save-feedback.visible { opacity: 1; }
-
-  /* ─── HISTORY PANEL ─── */
-  .history-panel {}
-
-  .history-count {
-    font-family: 'Cinzel', serif;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    color: var(--gris);
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-
-  .entries-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .entry-card {
-    background: var(--noir-2);
-    border: 1px solid rgba(212, 168, 67, 0.08);
-    padding: 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    border-left: 3px solid var(--card-color, rgba(212,168,67,0.3));
-    animation: slideIn 0.4s ease both;
-  }
-
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateX(12px); }
-    to { opacity: 1; transform: translateX(0); }
-  }
-
-  .entry-card:hover {
-    border-color: rgba(212, 168, 67, 0.25);
-    transform: translateX(-4px);
-  }
-
-  .entry-card.active {
-    border-color: rgba(212, 168, 67, 0.4);
-    background: #161616;
-  }
-
-  .entry-card[data-accord="1"] { --card-color: var(--accord-1); }
-  .entry-card[data-accord="2"] { --card-color: var(--accord-2); }
-  .entry-card[data-accord="3"] { --card-color: var(--accord-3); }
-  .entry-card[data-accord="4"] { --card-color: var(--accord-4); }
-  .entry-card[data-accord="5"] { --card-color: var(--accord-5); }
-  .entry-card[data-accord="0"] { --card-color: rgba(212,168,67,0.3); }
-
-  .entry-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 8px;
-    gap: 8px;
-  }
-
-  .entry-card-date {
-    font-family: 'Cinzel', serif;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    color: var(--or-sombre);
-    text-transform: uppercase;
-  }
-
-  .entry-card-tag {
-    font-family: 'Cinzel', serif;
-    font-size: 8px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--card-color, var(--or));
-    border: 1px solid var(--card-color, var(--or));
-    padding: 2px 8px;
-    white-space: nowrap;
-    opacity: 0.8;
-  }
-
-  .entry-card-preview {
-    font-family: 'Crimson Text', serif;
-    font-style: italic;
-    font-size: 0.95rem;
-    color: rgba(240, 235, 224, 0.6);
-    line-height: 1.5;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-
-  .entry-card-actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 12px;
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-
-  .entry-card:hover .entry-card-actions { opacity: 1; }
-
-  .btn-action {
-    font-family: 'Cinzel', serif;
-    font-size: 8px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    background: transparent;
-    border: 1px solid rgba(212,168,67,0.2);
-    color: var(--gris-clair);
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .btn-action:hover {
-    border-color: var(--or);
-    color: var(--or);
-  }
-
-  .btn-action.danger:hover {
-    border-color: var(--danger);
-    color: var(--danger);
-  }
-
-  /* Empty history */
-  .empty-history {
-    text-align: center;
-    padding: 48px 24px;
-    font-family: 'Crimson Text', serif;
-    font-style: italic;
-    color: var(--gris);
-    font-size: 1rem;
-    display: none;
-  }
-
-  .empty-history.visible { display: block; }
-
-  .empty-glyph {
-    font-family: 'Cinzel', serif;
-    font-size: 2rem;
-    color: rgba(212,168,67,0.1);
-    margin-bottom: 12px;
-  }
-
-  /* ─── STATS BAR ─── */
-  .stats-bar {
-    position: relative;
-    z-index: 1;
-    max-width: 1100px;
-    margin: 0 auto 0;
-    padding: 0 24px 32px;
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-
-  .stat-item {
-    text-align: center;
-    padding: 16px 24px;
-    border: 1px solid rgba(212,168,67,0.1);
-    background: var(--noir-2);
-    flex: 1;
-    min-width: 120px;
-  }
-
-  .stat-value {
-    font-family: 'Cinzel', serif;
-    font-size: 1.5rem;
-    font-weight: 900;
-    color: var(--or);
-    display: block;
-  }
-
-  .stat-label {
-    font-family: 'Cinzel', serif;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    color: var(--gris);
-    text-transform: uppercase;
-    margin-top: 4px;
-    display: block;
-  }
-
-  /* ─── FOOTER ─── */
-  footer {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    padding: 32px;
-    border-top: 1px solid rgba(212,168,67,0.08);
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    color: rgba(102,102,102,0.5);
-    text-transform: uppercase;
-  }
-
-  /* ─── RESPONSIVE ─── */
-  @media (max-width: 768px) {
-    .main-layout {
-      grid-template-columns: 1fr;
-      gap: 32px;
-    }
-    header { padding: 64px 20px 48px; }
-    .nav-back { font-size: 10px; }
-  }
+:root {
+--noir: #0a0a0a; --noir-2: #111111; --noir-3: #1a1a1a;
+--or: #d4a843; --or-pale: #e8c97a; --or-sombre: #8a6a20;
+--blanc: #f0ebe0; --gris: #666; --gris-clair: #999;
+--accord-1: #c0392b; --accord-2: #2980b9; --accord-3: #27ae60;
+--accord-4: #8e44ad; --accord-5: #d4a843; --danger: #c0392b;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--noir); color: var(--blanc); font-family: 'Crimson Text', Georgia, serif; font-size: 18px; line-height: 1.7; min-height: 100vh; }
+body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: 0.4; }
+header { position: relative; text-align: center; padding: 80px 24px 60px; border-bottom: 1px solid rgba(212,168,67,0.15); }
+header::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 1px; background: linear-gradient(90deg, transparent, var(--or), transparent); }
+.nav-back { position: absolute; top: 32px; left: 32px; font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.2em; color: var(--or-sombre); text-decoration: none; text-transform: uppercase; transition: color 0.3s; }
+.nav-back:hover { color: var(--or); }
+.eyebrow { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.35em; color: var(--or-sombre); text-transform: uppercase; margin-bottom: 20px; }
+h1 { font-family: 'Cinzel', serif; font-size: clamp(2rem,5vw,3.5rem); font-weight: 900; color: var(--or); letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.1; margin-bottom: 16px; }
+.subtitle { font-family: 'Crimson Text', serif; font-style: italic; font-size: 1.1rem; color: rgba(240,235,224,0.5); }
+.main-layout { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; display: grid; grid-template-columns: 1fr 380px; gap: 40px; align-items: start; }
+.editor-panel {}
+.panel-title { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.3em; color: var(--or-sombre); text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+.panel-title::after { content: ''; flex: 1; height: 1px; background: rgba(212,168,67,0.15); }
+.entry-meta { display: flex; gap: 12px; margin-bottom: 16px; align-items: center; flex-wrap: wrap; }
+.date-display { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.2em; color: var(--or); text-transform: uppercase; padding: 8px 16px; border: 1px solid rgba(212,168,67,0.25); background: var(--noir-2); }
+.accord-select { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; background: var(--noir-2); border: 1px solid rgba(212,168,67,0.25); color: var(--blanc); padding: 8px 16px; outline: none; cursor: pointer; transition: border-color 0.3s; appearance: none; -webkit-appearance: none; }
+.accord-select:focus { border-color: rgba(212,168,67,0.5); }
+option { background: var(--noir-2); }
+.entry-textarea { width: 100%; min-height: 280px; background: var(--noir-2); border: 1px solid rgba(212,168,67,0.2); color: var(--blanc); font-family: 'Crimson Text', serif; font-size: 1.1rem; line-height: 1.8; padding: 24px; outline: none; resize: vertical; transition: border-color 0.3s; letter-spacing: 0.02em; }
+.entry-textarea::placeholder { color: var(--gris); font-style: italic; }
+.entry-textarea:focus { border-color: rgba(212,168,67,0.4); }
+.char-count { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.2em; color: var(--gris); text-transform: uppercase; text-align: right; margin-top: 8px; margin-bottom: 16px; }
+.btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-primary { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; padding: 12px 32px; background: var(--or); border: 1px solid var(--or); color: var(--noir); cursor: pointer; transition: all 0.3s ease; font-weight: 600; }
+.btn-primary:hover { background: var(--or-pale); border-color: var(--or-pale); }
+.btn-secondary { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; padding: 12px 24px; background: transparent; border: 1px solid rgba(212,168,67,0.25); color: rgba(240,235,224,0.5); cursor: pointer; transition: all 0.3s ease; }
+.btn-secondary:hover { border-color: rgba(212,168,67,0.5); color: var(--blanc); }
+.btn-export { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; padding: 12px 24px; background: transparent; border: 1px solid rgba(212,168,67,0.25); color: rgba(212,168,67,0.6); cursor: pointer; transition: all 0.3s ease; }
+.btn-export:hover { border-color: var(--or); color: var(--or); }
+.save-feedback { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accord-3); margin-top: 12px; height: 16px; transition: opacity 0.5s; opacity: 0; }
+.save-feedback.visible { opacity: 1; }
+.history-panel {}
+/* P4 — filtre accord */
+.filter-row { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+.filter-btn { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 10px; background: transparent; border: 1px solid rgba(212,168,67,0.15); color: var(--gris-clair); cursor: pointer; transition: all 0.2s; }
+.filter-btn:hover { border-color: rgba(212,168,67,0.4); color: var(--blanc); }
+.filter-btn.active { background: rgba(212,168,67,0.1); border-color: var(--or); color: var(--or); }
+.filter-btn[data-accord="1"].active { border-color: var(--accord-1); color: var(--accord-1); background: rgba(192,57,43,0.08); }
+.filter-btn[data-accord="2"].active { border-color: var(--accord-2); color: var(--accord-2); background: rgba(41,128,185,0.08); }
+.filter-btn[data-accord="3"].active { border-color: var(--accord-3); color: var(--accord-3); background: rgba(39,174,96,0.08); }
+.filter-btn[data-accord="4"].active { border-color: var(--accord-4); color: var(--accord-4); background: rgba(142,68,173,0.08); }
+.filter-btn[data-accord="5"].active { border-color: var(--accord-5); color: var(--accord-5); background: rgba(212,168,67,0.08); }
+.history-count { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.2em; color: var(--gris); text-transform: uppercase; margin-bottom: 16px; }
+.entries-list { display: flex; flex-direction: column; gap: 12px; }
+.entry-card { background: var(--noir-2); border: 1px solid rgba(212,168,67,0.08); padding: 20px; cursor: pointer; transition: all 0.3s ease; position: relative; border-left: 3px solid var(--card-color, rgba(212,168,67,0.3)); animation: slideIn 0.4s ease both; }
+@keyframes slideIn { from { opacity:0; transform:translateX(12px); } to { opacity:1; transform:translateX(0); } }
+.entry-card:hover { border-color: rgba(212,168,67,0.25); transform: translateX(-4px); }
+.entry-card.active { border-color: rgba(212,168,67,0.4); background: #161616; }
+.entry-card[data-accord="1"] { --card-color: var(--accord-1); }
+.entry-card[data-accord="2"] { --card-color: var(--accord-2); }
+.entry-card[data-accord="3"] { --card-color: var(--accord-3); }
+.entry-card[data-accord="4"] { --card-color: var(--accord-4); }
+.entry-card[data-accord="5"] { --card-color: var(--accord-5); }
+.entry-card[data-accord="0"] { --card-color: rgba(212,168,67,0.3); }
+.entry-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 8px; }
+.entry-card-date { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.2em; color: var(--or-sombre); text-transform: uppercase; }
+.entry-card-tag { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--card-color, var(--or)); border: 1px solid var(--card-color, var(--or)); padding: 2px 8px; white-space: nowrap; opacity: 0.8; }
+.entry-card-preview { font-family: 'Crimson Text', serif; font-style: italic; font-size: 0.95rem; color: rgba(240,235,224,0.6); line-height: 1.5; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.entry-card-actions { display: flex; gap: 8px; margin-top: 12px; opacity: 0; transition: opacity 0.2s; }
+.entry-card:hover .entry-card-actions { opacity: 1; }
+.btn-action { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; background: transparent; border: 1px solid rgba(212,168,67,0.2); color: var(--gris-clair); cursor: pointer; transition: all 0.2s; }
+.btn-action:hover { border-color: var(--or); color: var(--or); }
+.btn-action.danger:hover { border-color: var(--danger); color: var(--danger); }
+.empty-history { text-align: center; padding: 48px 24px; font-family: 'Crimson Text', serif; font-style: italic; color: var(--gris); font-size: 1rem; display: none; }
+.empty-history.visible { display: block; }
+.empty-glyph { font-family: 'Cinzel', serif; font-size: 2rem; color: rgba(212,168,67,0.1); margin-bottom: 12px; }
+.stats-bar { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto 0; padding: 0 24px 32px; display: flex; gap: 24px; flex-wrap: wrap; }
+.stat-item { text-align: center; padding: 16px 24px; border: 1px solid rgba(212,168,67,0.1); background: var(--noir-2); flex: 1; min-width: 120px; }
+.stat-value { font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 900; color: var(--or); display: block; }
+.stat-label { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.2em; color: var(--gris); text-transform: uppercase; margin-top: 4px; display: block; }
+footer { position: relative; z-index: 1; text-align: center; padding: 32px; border-top: 1px solid rgba(212,168,67,0.08); font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.25em; color: rgba(102,102,102,0.5); text-transform: uppercase; }
+@media (max-width: 768px) { .main-layout { grid-template-columns: 1fr; gap: 32px; } header { padding: 64px 20px 48px; } .nav-back { font-size: 10px; } }
 </style>
 </head>
 <body>
-
 <header>
-  <a href="index.html" class="nav-back">← Obsidian</a>
-  <p class="eyebrow">Pratique Quotidienne</p>
-  <h1>Journal</h1>
-  <p class="subtitle">Écrire pour voir clair</p>
+<a href="index.html" class="nav-back">← Obsidian</a>
+<p class="eyebrow">Pratique Quotidienne</p>
+<h1>Journal</h1>
+<p class="subtitle">Écrire pour voir clair</p>
 </header>
-
-<!-- Stats -->
 <div class="stats-bar" id="statsBar">
-  <div class="stat-item">
-    <span class="stat-value" id="statTotal">0</span>
-    <span class="stat-label">Entrées</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-value" id="statStreak">0</span>
-    <span class="stat-label">Jours consécutifs</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-value" id="statWords">0</span>
-    <span class="stat-label">Mots écrits</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-value" id="statAccord">—</span>
-    <span class="stat-label">Accord favori</span>
-  </div>
+<div class="stat-item"><span class="stat-value" id="statTotal">0</span><span class="stat-label">Entrées</span></div>
+<div class="stat-item"><span class="stat-value" id="statStreak">0</span><span class="stat-label">Jours consécutifs</span></div>
+<div class="stat-item"><span class="stat-value" id="statWords">0</span><span class="stat-label">Mots écrits</span></div>
+<div class="stat-item"><span class="stat-value" id="statAccord">—</span><span class="stat-label">Accord favori</span></div>
 </div>
-
 <div class="main-layout">
-
-  <!-- EDITOR -->
-  <div class="editor-panel">
-    <p class="panel-title">Nouvelle entrée</p>
-
-    <div class="entry-meta">
-      <div class="date-display" id="dateDisplay">—</div>
-      <select class="accord-select" id="accordSelect">
-        <option value="0">— Aucun accord —</option>
-        <option value="1">I — Parole impeccable</option>
-        <option value="2">II — Ne pas supposer</option>
-        <option value="3">III — Ne pas personnaliser</option>
-        <option value="4">IV — Faire de son mieux</option>
-        <option value="5">V — Scepticisme intelligent</option>
-      </select>
-    </div>
-
-    <textarea
-      class="entry-textarea"
-      id="entryTextarea"
-      placeholder="Écris ici ta réflexion du jour. Qu'as-tu observé en toi ? Quel accord as-tu pratiqué ou violé ? Qu'est-ce qui mérite d'être examiné ?"></textarea>
-
-    <div class="char-count" id="charCount">0 caractères</div>
-
-    <div class="btn-row">
-      <button class="btn-primary" id="btnSave">Enregistrer</button>
-      <button class="btn-secondary" id="btnClear">Effacer</button>
-    </div>
-
-    <div class="save-feedback" id="saveFeedback">Entrée enregistrée ✓</div>
-  </div>
-
-  <!-- HISTORY -->
-  <div class="history-panel">
-    <p class="panel-title">Historique</p>
-    <p class="history-count" id="historyCount">0 entrée</p>
-    <div class="entries-list" id="entriesList"></div>
-    <div class="empty-history visible" id="emptyHistory">
-      <div class="empty-glyph">◈</div>
-      <p>Aucune entrée pour le moment.<br>Commence à écrire.</p>
-    </div>
-  </div>
-
+<div class="editor-panel">
+<p class="panel-title">Nouvelle entrée</p>
+<div class="entry-meta">
+<div class="date-display" id="dateDisplay">—</div>
+<select class="accord-select" id="accordSelect">
+<option value="0">— Aucun accord —</option>
+<option value="1">I — Parole impeccable</option>
+<option value="2">II — Ne pas supposer</option>
+<option value="3">III — Ne pas personnaliser</option>
+<option value="4">IV — Faire de son mieux</option>
+<option value="5">V — Scepticisme intelligent</option>
+</select>
 </div>
-
+<textarea class="entry-textarea" id="entryTextarea" placeholder="Écris ici ta réflexion du jour. Qu'as-tu observé en toi ? Quel accord as-tu pratiqué ou violé ? Qu'est-ce qui mérite d'être examiné ?"></textarea>
+<div class="char-count" id="charCount">0 caractères</div>
+<div class="btn-row">
+<button class="btn-primary" id="btnSave">Enregistrer</button>
+<button class="btn-secondary" id="btnClear">Effacer</button>
+<button class="btn-export" id="btnExport">⬇ Export JSON</button>
+</div>
+<div class="save-feedback" id="saveFeedback">Entrée enregistrée ✓</div>
+</div>
+<div class="history-panel">
+<p class="panel-title">Historique</p>
+<!-- P4 : filtres accord -->
+<div class="filter-row" id="filterRow">
+<button class="filter-btn active" data-accord="all">Tous</button>
+<button class="filter-btn" data-accord="0">Libre</button>
+<button class="filter-btn" data-accord="1">I</button>
+<button class="filter-btn" data-accord="2">II</button>
+<button class="filter-btn" data-accord="3">III</button>
+<button class="filter-btn" data-accord="4">IV</button>
+<button class="filter-btn" data-accord="5">V</button>
+</div>
+<p class="history-count" id="historyCount">0 entrée</p>
+<div class="entries-list" id="entriesList"></div>
+<div class="empty-history visible" id="emptyHistory">
+<div class="empty-glyph">◈</div>
+<p>Aucune entrée pour le moment.<br>Commence à écrire.</p>
+</div>
+</div>
+</div>
 <footer>OBSIDIAN — La Voie Toltèque</footer>
-
 <script>
 const STORAGE_KEY = 'obsidian_journal';
-
-const ACCORD_LABELS = {
-  0: null,
-  1: "I — Parole",
-  2: "II — Supposer",
-  3: "III — Perso.",
-  4: "IV — Mieux",
-  5: "V — Sceptic.",
-};
-
-// ── State
+const ACCORD_LABELS = { 0: null, 1: "I — Parole", 2: "II — Supposer", 3: "III — Perso.", 4: "IV — Mieux", 5: "V — Sceptic." };
 let entries = [];
 let editingId = null;
+let activeFilter = 'all'; // P4
 
-// ── DOM
-const dateDisplay   = document.getElementById('dateDisplay');
-const accordSelect  = document.getElementById('accordSelect');
-const textarea      = document.getElementById('entryTextarea');
-const charCount     = document.getElementById('charCount');
-const btnSave       = document.getElementById('btnSave');
-const btnClear      = document.getElementById('btnClear');
-const saveFeedback  = document.getElementById('saveFeedback');
-const entriesList   = document.getElementById('entriesList');
-const emptyHistory  = document.getElementById('emptyHistory');
-const historyCount  = document.getElementById('historyCount');
+const dateDisplay = document.getElementById('dateDisplay');
+const accordSelect = document.getElementById('accordSelect');
+const textarea = document.getElementById('entryTextarea');
+const charCount = document.getElementById('charCount');
+const btnSave = document.getElementById('btnSave');
+const btnClear = document.getElementById('btnClear');
+const btnExport = document.getElementById('btnExport');
+const saveFeedback = document.getElementById('saveFeedback');
+const entriesList = document.getElementById('entriesList');
+const emptyHistory = document.getElementById('emptyHistory');
+const historyCount = document.getElementById('historyCount');
 
-// ── Utils
-function today() {
-  return new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-}
+function today() { return new Date().toISOString().split('T')[0]; }
+function formatDateShort(iso) { const d = new Date(iso + 'T00:00:00'); return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' }); }
+function wordCount(str) { return str.trim() ? str.trim().split(/\s+/).length : 0; }
+function genId() { return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
 
-function formatDate(iso) {
-  const d = new Date(iso + 'T00:00:00');
-  return d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-}
+function load() { try { entries = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch { entries = []; } }
+function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); }
 
-function formatDateShort(iso) {
-  const d = new Date(iso + 'T00:00:00');
-  return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
-}
-
-function wordCount(str) {
-  return str.trim() ? str.trim().split(/\s+/).length : 0;
-}
-
-function genId() {
-  return Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
-}
-
-// ── Load / Save
-function load() {
-  try {
-    entries = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-  } catch { entries = []; }
-}
-
-function save() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
-}
-
-// ── Stats
 function computeStreak() {
   if (!entries.length) return 0;
   const dates = [...new Set(entries.map(e => e.date))].sort().reverse();
-  let streak = 0;
-  let cursor = new Date(today());
+  let streak = 0, cursor = new Date(today());
   for (const d of dates) {
     const diff = (cursor - new Date(d + 'T00:00:00')) / 86400000;
-    if (diff <= 1) { streak++; cursor = new Date(d + 'T00:00:00'); }
-    else break;
+    if (diff <= 1) { streak++; cursor = new Date(d + 'T00:00:00'); } else break;
   }
   return streak;
 }
 
 function computeFavAccord() {
   const counts = {};
-  entries.forEach(e => {
-    if (e.accord > 0) counts[e.accord] = (counts[e.accord] || 0) + 1;
-  });
+  entries.forEach(e => { if (e.accord > 0) counts[e.accord] = (counts[e.accord] || 0) + 1; });
   if (!Object.keys(counts).length) return '—';
-  const best = Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
-  return 'Accord ' + ['I','II','III','IV','V'][best - 1];
+  const best = Object.entries(counts).sort((a,b) => b[1]-a[1])[0][0];
+  return 'Accord ' + ['I','II','III','IV','V'][best-1];
 }
 
 function updateStats() {
   document.getElementById('statTotal').textContent = entries.length;
-  document.getElementById('statStreak)'.textContent = computeStreak();
-  const totalWords = entries.reduce((s, e) => s + wordCount(e.text), 0);
-  document.getElementById('statWords').textContent = totalWords.toLocaleString('fr-FR');
+  document.getElementById('statStreak').textContent = computeStreak();
+  document.getElementById('statWords').textContent = entries.reduce((s,e) => s + wordCount(e.text), 0).toLocaleString('fr-FR');
   document.getElementById('statAccord').textContent = computeFavAccord();
 }
 
-// ── Render history
+// P4 — filtres
+document.getElementById('filterRow').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeFilter = btn.dataset.accord;
+  renderHistory();
+});
+
+function getFilteredEntries() {
+  if (activeFilter === 'all') return entries;
+  return entries.filter(e => String(e.accord) === activeFilter);
+}
+
 function renderHistory() {
   entriesList.innerHTML = '';
-  const sorted = [...entries].sort((a, b) => b.createdAt - a.createdAt).slice(0, 20);
-
-  if (!sorted.length) {
+  const filtered = getFilteredEntries().sort((a,b) => b.createdAt - a.createdAt).slice(0, 20);
+  if (!filtered.length) {
     emptyHistory.classList.add('visible');
-    historyCount.textContent = '0 entrée';
+    historyCount.textContent = activeFilter === 'all' ? '0 entrée' : 'Aucune entrée pour ce filtre';
     return;
   }
-
   emptyHistory.classList.remove('visible');
-  historyCount.textContent = `${entries.length} entrée${entries.length > 1 ? 's' : ''}`;
-
-  sorted.forEach((e, i) => {
+  const total = getFilteredEntries().length;
+  historyCount.textContent = `${total} entrée${total > 1 ? 's' : ''}${activeFilter !== 'all' ? ' (filtrée)' : ''}`;
+  filtered.forEach((e, i) => {
     const card = document.createElement('div');
     card.className = 'entry-card';
     card.dataset.id = e.id;
     card.dataset.accord = e.accord;
     if (editingId === e.id) card.classList.add('active');
     card.style.animationDelay = `${i * 0.05}s`;
-
-    const tag = e.accord > 0
-      ? `<span class="entry-card-tag">${ACCORD_LABELS[e.accord]}</span>`
-      : '';
-
+    const tag = e.accord > 0 ? `<span class="entry-card-tag">${ACCORD_LABELS[e.accord]}</span>` : '';
     card.innerHTML = `
       <div class="entry-card-header">
         <span class="entry-card-date">${formatDateShort(e.date)}</span>
@@ -689,13 +243,11 @@ function renderHistory() {
       <div class="entry-card-actions">
         <button class="btn-action" onclick="loadEntry('${e.id}')">Modifier</button>
         <button class="btn-action danger" onclick="deleteEntry('${e.id}')">Supprimer</button>
-      </div>
-    `;
+      </div>`;
     entriesList.appendChild(card);
   });
 }
 
-// ── Load entry into editor
 function loadEntry(id) {
   const e = entries.find(x => x.id === id);
   if (!e) return;
@@ -709,85 +261,59 @@ function loadEntry(id) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ── Delete entry
 function deleteEntry(id) {
   if (!confirm('Supprimer cette entrée ?')) return;
   entries = entries.filter(e => e.id !== id);
-  if (editingId === id) {
-    editingId = null;
-    textarea.value = '';
-    accordSelect.value = '0';
-    btnSave.textContent = 'Enregistrer';
-  }
-  save();
-  renderHistory();
-  updateStats();
+  if (editingId === id) { editingId = null; textarea.value = ''; accordSelect.value = '0'; btnSave.textContent = 'Enregistrer'; }
+  save(); renderHistory(); updateStats();
 }
 
-// ── Save
 btnSave.addEventListener('click', () => {
   const text = textarea.value.trim();
   if (!text) { textarea.focus(); return; }
-
   if (editingId) {
     const idx = entries.findIndex(e => e.id === editingId);
-    if (idx >= 0) {
-      entries[idx].text = text;
-      entries[idx].accord = parseInt(accordSelect.value);
-      entries[idx].updatedAt = Date.now();
-    }
-    editingId = null;
-    btnSave.textContent = 'Enregistrer';
+    if (idx >= 0) { entries[idx].text = text; entries[idx].accord = parseInt(accordSelect.value); entries[idx].updatedAt = Date.now(); }
+    editingId = null; btnSave.textContent = 'Enregistrer';
   } else {
-    entries.push({
-      id: genId(),
-      date: today(),
-      accord: parseInt(accordSelect.value),
-      text,
-      createdAt: Date.now(),
-      updatedAt: Date.now(),
-    });
+    entries.push({ id: genId(), date: today(), accord: parseInt(accordSelect.value), text, createdAt: Date.now(), updatedAt: Date.now() });
   }
-
-  save();
-  textarea.value = '';
-  accordSelect.value = '0';
-  charCount.textContent = '0 caractères';
-  renderHistory();
-  updateStats();
-
+  save(); textarea.value = ''; accordSelect.value = '0'; charCount.textContent = '0 caractères';
+  renderHistory(); updateStats();
   saveFeedback.classList.add('visible');
   setTimeout(() => saveFeedback.classList.remove('visible'), 2500);
 });
 
-// ── Clear
 btnClear.addEventListener('click', () => {
-  textarea.value = '';
-  accordSelect.value = '0';
-  editingId = null;
-  btnSave.textContent = 'Enregistrer';
-  charCount.textContent = '0 caractères';
-  textarea.focus();
+  textarea.value = ''; accordSelect.value = '0'; editingId = null;
+  btnSave.textContent = 'Enregistrer'; charCount.textContent = '0 caractères'; textarea.focus();
 });
 
-// ── Char count
-textarea.addEventListener('input', () => {
-  charCount.textContent = `${textarea.value.length} caractères`;
+// P4 — Export JSON
+btnExport.addEventListener('click', () => {
+  if (!entries.length) { alert('Aucune entrée à exporter.'); return; }
+  const data = {
+    export_date: new Date().toISOString(),
+    platform: 'OBSIDIAN — Les 5 Accords Toltèques',
+    total_entries: entries.length,
+    entries: entries.sort((a,b) => a.createdAt - b.createdAt)
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `obsidian-journal-${today()}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
 });
 
-// ── Date display
+textarea.addEventListener('input', () => { charCount.textContent = `${textarea.value.length} caractères`; });
+
 function updateDate() {
-  const now = new Date();
-  dateDisplay.textContent = now.toLocaleDateString('fr-FR', {
-    weekday: 'long', day: 'numeric', month: 'long'
-  });
+  dateDisplay.textContent = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
 }
 
-// ── Init
-load();
-updateDate();
-renderHistory();
-updateStats();
+load(); updateDate(); renderHistory(); updateStats();
 </script>
 </body>
 </html>

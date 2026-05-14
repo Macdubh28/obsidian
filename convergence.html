@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBSIDIAN — Les Deux Voies</title>
+<meta name="description" content="Convergence : Accords Toltèques et Stoïcisme. Deux traditions, un seul chemin vers la maîtrise de soi.">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a0a0a">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--or:#d4a843;--or-dim:rgba(212,168,67,0.18);--or-subtle:rgba(212,168,67,0.06);--pierre:#f0e8d0;--noir:#0a0a0a;--noir2:#0d0d0d;--noir3:#111111;--texte:rgba(240,232,208,0.7);--texte-dim:rgba(240,232,208,0.45);--toltec:#c0392b;--toltec-dim:rgba(192,57,43,0.12);--stoic:#2c5f8a;--stoic-dim:rgba(44,95,138,0.12);--fusion:#6b3fa0;--fusion-dim:rgba(107,63,160,0.12);}
+html{scroll-behavior:smooth;}
+body{background:var(--noir);color:var(--pierre);font-family:'Crimson Text',serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.35;}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 40px;border-bottom:0.5px solid rgba(212,168,67,0.2);position:sticky;top:0;background:rgba(10,10,10,0.97);z-index:100;backdrop-filter:blur(8px);}
+.logo-row{display:flex;align-items:center;gap:12px;}
+.logo-circle{width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(212,168,67,0.5);background:var(--or-dim);display:flex;align-items:center;justify-content:center;}
+.site-name{font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:0.2em;color:var(--or);text-transform:uppercase;}
+.nav-links{display:flex;gap:24px;align-items:center;}
+.nav-links a{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;color:rgba(212,168,67,0.45);text-decoration:none;text-transform:uppercase;transition:color 0.2s;}
+.nav-links a:hover{color:var(--or);}
+.nav-back{padding-right:20px;border-right:0.5px solid rgba(212,168,67,0.15);}
+.hero{position:relative;padding:100px 40px 80px;text-align:center;overflow:hidden;border-bottom:0.5px solid rgba(212,168,67,0.08);}
+.hero-glow-left{position:absolute;left:5%;top:50%;transform:translateY(-50%);width:320px;height:320px;background:radial-gradient(ellipse,rgba(192,57,43,0.07) 0%,transparent 70%);pointer-events:none;}
+.hero-glow-right{position:absolute;right:5%;top:50%;transform:translateY(-50%);width:320px;height:320px;background:radial-gradient(ellipse,rgba(44,95,138,0.07) 0%,transparent 70%);pointer-events:none;}
+.hero-glow-center{position:absolute;left:50%;top:60%;transform:translate(-50%,-50%);width:400px;height:200px;background:radial-gradient(ellipse,rgba(107,63,160,0.06) 0%,transparent 70%);pointer-events:none;}
+.hero-eyebrow{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.4em;color:rgba(212,168,67,0.4);text-transform:uppercase;margin-bottom:24px;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(2.4rem,6vw,4.2rem);font-weight:900;letter-spacing:0.06em;line-height:1.05;color:var(--pierre);margin-bottom:16px;}
+.hero-title .accent-toltec{color:var(--toltec);}
+.hero-title .accent-stoic{color:var(--stoic);}
+.hero-divider{display:flex;align-items:center;justify-content:center;gap:16px;margin:20px 0 28px;}
+.hero-divider-line{width:60px;height:0.5px;background:linear-gradient(90deg,transparent,rgba(212,168,67,0.3));}
+.hero-divider-line.right{background:linear-gradient(90deg,rgba(212,168,67,0.3),transparent);}
+.hero-divider-glyph{font-family:'Cinzel',serif;font-size:16px;color:rgba(212,168,67,0.4);}
+.hero-subtitle{font-family:'Crimson Text',serif;font-size:19px;font-style:italic;color:var(--texte);max-width:560px;margin:0 auto;line-height:1.75;}
+.section{position:relative;z-index:1;padding:72px 40px;}
+.section-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.4em;color:rgba(212,168,67,0.35);text-transform:uppercase;margin-bottom:48px;text-align:center;display:flex;align-items:center;justify-content:center;gap:16px;}
+.section-label::before,.section-label::after{content:'';flex:1;max-width:80px;height:0.5px;background:rgba(212,168,67,0.12);}
+.deux-voies{max-width:1100px;margin:0 auto;}
+.voies-grid{display:grid;grid-template-columns:1fr 56px 1fr;gap:0;position:relative;}
+.voie-col{padding:0 32px;}
+.voie-header{margin-bottom:32px;}
+.voie-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.35em;text-transform:uppercase;margin-bottom:10px;display:block;}
+.voie-label.toltec{color:var(--toltec);}
+.voie-label.stoic{color:var(--stoic);}
+.voie-title{font-family:'Cinzel',serif;font-size:clamp(1rem,2.5vw,1.4rem);font-weight:900;letter-spacing:0.06em;line-height:1.2;}
+.voie-title.toltec{color:var(--toltec);}
+.voie-title.stoic{color:var(--stoic);}
+.voie-source{font-family:'Crimson Text',serif;font-style:italic;font-size:13px;color:var(--texte-dim);margin-top:6px;}
+.voie-item{margin-bottom:24px;padding:20px 24px;background:var(--noir3);border:0.5px solid rgba(255,255,255,0.04);}
+.voie-item.toltec-item{border-left:2px solid rgba(192,57,43,0.5);}
+.voie-item.stoic-item{border-right:2px solid rgba(44,95,138,0.5);}
+.voie-item-label{font-family:'Cinzel',serif;font-size:8px;letter-spacing:0.25em;text-transform:uppercase;margin-bottom:8px;display:block;}
+.voie-item-label.toltec{color:rgba(192,57,43,0.7);}
+.voie-item-label.stoic{color:rgba(44,95,138,0.7);}
+.voie-item-text{font-family:'Crimson Text',serif;font-size:15px;color:var(--texte);line-height:1.65;}
+.voie-item-sub{font-family:'Crimson Text',serif;font-style:italic;font-size:13px;color:var(--texte-dim);margin-top:6px;line-height:1.5;}
+.voie-axis{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:88px;gap:16px;}
+.axis-node{width:10px;height:10px;border-radius:50%;background:rgba(212,168,67,0.25);border:0.5px solid rgba(212,168,67,0.4);flex-shrink:0;}
+.axis-line{width:1px;flex:1;background:linear-gradient(to bottom,rgba(212,168,67,0.08),rgba(212,168,67,0.2),rgba(107,63,160,0.15),rgba(212,168,67,0.05));min-height:20px;}
+.axis-symbol{font-family:'Cinzel',serif;font-size:11px;color:rgba(212,168,67,0.5);writing-mode:vertical-rl;letter-spacing:0.3em;text-transform:uppercase;white-space:nowrap;}
+.convergence-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:1100px;margin:0 auto;}
+.conv-card{background:var(--noir3);border:0.5px solid rgba(212,168,67,0.1);padding:32px;position:relative;overflow:hidden;transition:border-color 0.3s;}
+.conv-card:hover{border-color:rgba(212,168,67,0.25);}
+.conv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.conv-card.card-parole::before{background:linear-gradient(90deg,var(--toltec),rgba(212,168,67,0.8));}
+.conv-card.card-diktat::before{background:linear-gradient(90deg,var(--stoic),rgba(212,168,67,0.8));}
+.conv-card.card-image::before{background:linear-gradient(90deg,var(--toltec),var(--fusion));}
+.conv-card.card-temps::before{background:linear-gradient(90deg,var(--stoic),var(--fusion));}
+.conv-num{font-family:'Cinzel',serif;font-size:32px;font-weight:900;color:rgba(212,168,67,0.07);position:absolute;top:16px;right:20px;line-height:1;}
+.conv-icon{font-size:20px;margin-bottom:14px;display:block;opacity:0.7;}
+.conv-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:var(--pierre);margin-bottom:16px;line-height:1.4;}
+.conv-body{font-family:'Crimson Text',serif;font-size:15px;color:var(--texte);line-height:1.7;}
+.conv-bridge{display:flex;align-items:center;gap:10px;margin:14px 0;flex-wrap:wrap;}
+.conv-bridge-tag{padding:3px 10px;border:0.5px solid;font-family:'Cinzel',serif;font-size:8px;letter-spacing:0.15em;text-transform:uppercase;}
+.conv-bridge-tag.t{border-color:rgba(192,57,43,0.4);color:rgba(192,57,43,0.8);background:rgba(192,57,43,0.05);}
+.conv-bridge-tag.s{border-color:rgba(44,95,138,0.4);color:rgba(44,95,138,0.8);background:rgba(44,95,138,0.05);}
+.conv-bridge-arrow{color:rgba(212,168,67,0.3);font-size:11px;}
+.citation-duel{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(212,168,67,0.08);}
+.cit-block{padding:48px 40px;background:var(--noir2);}
+.cit-block.toltec-block{border-top:2px solid var(--toltec);}
+.cit-block.stoic-block{border-top:2px solid var(--stoic);}
+.cit-ornement{font-family:'Cinzel',serif;font-size:48px;line-height:0.7;margin-bottom:20px;}
+.cit-ornement.toltec{color:rgba(192,57,43,0.15);}
+.cit-ornement.stoic{color:rgba(44,95,138,0.15);}
+.cit-text{font-family:'Crimson Text',serif;font-size:18px;font-style:italic;color:var(--pierre);line-height:1.75;margin-bottom:20px;}
+.cit-source{font-family:'Cinzel',serif;font-size:8px;letter-spacing:0.25em;text-transform:uppercase;}
+.cit-source.toltec{color:rgba(192,57,43,0.6);}
+.cit-source.stoic{color:rgba(44,95,138,0.6);}
+.cit-echo{font-family:'Crimson Text',serif;font-style:italic;font-size:13px;color:var(--texte-dim);margin-top:16px;padding-top:16px;border-top:0.5px solid rgba(212,168,67,0.08);line-height:1.6;}
+.synthese{max-width:780px;margin:0 auto;text-align:center;padding:72px 40px;}
+.synthese-glyph{font-family:'Cinzel',serif;font-size:48px;color:rgba(107,63,160,0.3);margin-bottom:24px;display:block;}
+.synthese-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.4em;color:rgba(107,63,160,0.5);text-transform:uppercase;margin-bottom:20px;}
+.synthese-title{font-family:'Cinzel',serif;font-size:clamp(1.4rem,3.5vw,2.2rem);font-weight:900;color:var(--pierre);letter-spacing:0.05em;margin-bottom:28px;line-height:1.2;}
+.synthese-title span{color:var(--fusion);}
+.synthese-body{font-family:'Crimson Text',serif;font-size:17px;color:var(--texte);line-height:1.85;margin-bottom:20px;}
+.synthese-pilliers{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-top:32px;}
+.pill{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;padding:8px 20px;border:0.5px solid;}
+.pill.toltec-pill{border-color:rgba(192,57,43,0.35);color:rgba(192,57,43,0.7);}
+.pill.stoic-pill{border-color:rgba(44,95,138,0.35);color:rgba(44,95,138,0.7);}
+.pill.ghost-pill{border-color:rgba(107,63,160,0.35);color:rgba(107,63,160,0.8);}
+.synthese-quote{font-family:'Crimson Text',serif;font-size:20px;font-style:italic;color:var(--pierre);margin-top:48px;padding:32px;border:0.5px solid rgba(107,63,160,0.2);background:rgba(107,63,160,0.04);line-height:1.8;}
+.synthese-quote-src{font-family:'Cinzel',serif;font-size:8px;letter-spacing:0.25em;color:rgba(107,63,160,0.5);text-transform:uppercase;margin-top:12px;display:block;}
+.ecosystem-links{padding:48px 40px;border-top:0.5px solid rgba(212,168,67,0.08);display:flex;justify-content:center;gap:24px;flex-wrap:wrap;}
+.eco-link{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(212,168,67,0.4);text-decoration:none;border:0.5px solid rgba(212,168,67,0.12);padding:10px 24px;transition:all 0.2s;}
+.eco-link:hover{color:var(--or);border-color:rgba(212,168,67,0.35);}
+.eco-link.featured{border-color:rgba(107,63,160,0.3);color:rgba(107,63,160,0.6);}
+.eco-link.featured:hover{color:rgba(107,63,160,1);border-color:rgba(107,63,160,0.6);}
+footer{padding:28px 40px;border-top:0.5px solid rgba(212,168,67,0.08);display:flex;justify-content:space-between;align-items:center;}
+.footer-tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;color:rgba(212,168,67,0.25);text-transform:uppercase;}
+@media(max-width:768px){nav{padding:14px 20px;}.nav-links{display:none;}.hero{padding:70px 20px 60px;}.section{padding:52px 20px;}.voies-grid{grid-template-columns:1fr;gap:32px;}.voie-col{padding:0;}.voie-axis{display:none;}.voie-item.stoic-item{border-right:none;border-left:2px solid rgba(44,95,138,0.5);}.citation-duel{grid-template-columns:1fr;}.cit-block{padding:32px 24px;}.synthese{padding:52px 20px;}.synthese-pilliers{gap:16px;}.ecosystem-links{padding:32px 20px;gap:16px;}footer{padding:24px 20px;flex-direction:column;gap:8px;text-align:center;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo-row"><div class="logo-circle"><span style="font-size:20px;color:var(--or);">🦅</span></div><span class="site-name">Obsidian</span></div>
+  <div class="nav-links"><a href="index.html" class="nav-back">← Retour</a><a href="accord-1.html">Les Accords</a><a href="citations.html">Citations</a><a href="progression.html">Progression</a></div>
+</nav>
+<section class="hero">
+  <div class="hero-glow-left"></div><div class="hero-glow-right"></div><div class="hero-glow-center"></div>
+  <p class="hero-eyebrow">Obsidian · Ghost Ecosystem · Convergence</p>
+  <h1 class="hero-title"><span class="accent-toltec">Les Accords</span><br>&amp;<br><span class="accent-stoic">Le Stoïcisme</span></h1>
+  <div class="hero-divider"><div class="hero-divider-line"></div><span class="hero-divider-glyph">⚖</span><div class="hero-divider-line right"></div></div>
+  <p class="hero-subtitle">Deux traditions millénaires. Un seul axe : la maîtrise de ce qui dépend de toi.<br>L'une t'enseigne <em>comment vivre</em>. L'autre, <em>pourquoi maintenant</em>.</p>
+</section>
+<section class="section" style="border-bottom:0.5px solid rgba(212,168,67,0.06);">
+  <p class="section-label">Les Deux Traditions</p>
+  <div class="deux-voies"><div class="voies-grid">
+    <div class="voie-col">
+      <div class="voie-header"><span class="voie-label toltec">Voie Chamanique</span><p class="voie-title toltec">Les 5 Accords Toltèques</p><p class="voie-source">don Miguel Ruiz · Mexique ancien</p></div>
+      <div class="voie-item toltec-item"><span class="voie-item-label toltec">Fondation</span><p class="voie-item-text">Le monde est un rêve. Chaque humain vit dans son propre rêve domestiqué depuis l'enfance. Les accords sont les règles de ce rêve.</p><p class="voie-item-sub">La liberté vient de rompre les vieux accords et d'en former de nouveaux, conscients.</p></div>
+      <div class="voie-item toltec-item"><span class="voie-item-label toltec">Outil central</span><p class="voie-item-text">La parole impeccable. Les images mentales, les sorts, les graines plantées dans l'esprit de l'autre. La magie du langage quotidien.</p><p class="voie-item-sub">Chaque mot est un sort. Chaque jugement est une graine de poison ou de lumière.</p></div>
+      <div class="voie-item toltec-item"><span class="voie-item-label toltec">Force unique</span><p class="voie-item-text">Ruiz rend visible ce que le stoïcisme ne nomme pas : la dimension symbolique et chamanique du quotidien. Les peurs comme sorts, l'ego comme parasite.</p><p class="voie-item-sub">Il donne une grammaire des blessures : comment elles s'installent, comment elles s'opèrent.</p></div>
+      <div class="voie-item toltec-item"><span class="voie-item-label toltec">Question centrale</span><p class="voie-item-text"><em>Comment vivre</em> avec les autres sans se laisser contaminer — sans projeter, sans supposer, sans prendre personnellement.</p></div>
+    </div>
+    <div class="voie-axis"><div class="axis-node"></div><div class="axis-line"></div><div class="axis-symbol">Convergence</div><div class="axis-line"></div><div class="axis-node" style="background:rgba(107,63,160,0.35);border-color:rgba(107,63,160,0.6);"></div></div>
+    <div class="voie-col">
+      <div class="voie-header"><span class="voie-label stoic">Voie Philosophique</span><p class="voie-title stoic">Le Stoïcisme</p><p class="voie-source">Épictète · Marc Aurèle · Sénèque · Grèce–Rome</p></div>
+      <div class="voie-item stoic-item"><span class="voie-item-label stoic">Fondation</span><p class="voie-item-text">La distinction radicale : ce qui dépend de toi (ἐφ' ἡμιν) et ce qui n'en dépend pas. Sur cette ligne repose toute la liberté humaine.</p><p class="voie-item-sub">Le diktat d'Épictète : vouloir uniquement ce qui est en ton pouvoir. Tout le reste est indifférent.</p></div>
+      <div class="voie-item stoic-item"><span class="voie-item-label stoic">Outil central</span><p class="voie-item-text">La raison comme gouvernail. Les jugements, pas les événements, qui causent la souffrance. Le logos intérieur — l'hégémonikon — comme citadelle.</p><p class="voie-item-sub">Ce n'est pas ce qui arrive qui compte, mais le nom qu'on lui donne intérieurement.</p></div>
+      <div class="voie-item stoic-item"><span class="voie-item-label stoic">Force unique</span><p class="voie-item-text">Le stoïcisme apporte ce que Ruiz n'a pas : la dimension temporelle. Memento mori — tu mourras. L'urgence du présent comme seul territoire réel.</p><p class="voie-item-sub">Meditatio mortis : méditer la fin pour agir maintenant. <em>Pourquoi maintenant</em>, pas demain.</p></div>
+      <div class="voie-item stoic-item"><span class="voie-item-label stoic">Question centrale</span><p class="voie-item-text"><em>Pourquoi agir maintenant</em> — dans l'urgence lucide de ce que la mort rend irréversible. La vertu comme seul bien véritable.</p></div>
+    </div>
+  </div></div>
+</section>
+<section class="section" style="background:rgba(212,168,67,0.015);border-bottom:0.5px solid rgba(212,168,67,0.06);">
+  <p class="section-label">Points de Convergence</p>
+  <div class="convergence-grid">
+    <div class="conv-card card-diktat"><span class="conv-num">I</span><span class="conv-icon">🎯</span><p class="conv-title">Ce qui dépend de toi</p><div class="conv-bridge"><span class="conv-bridge-tag t">Accord II–III</span><span class="conv-bridge-arrow">↔</span><span class="conv-bridge-tag s">Diktat · Épictète</span></div><p class="conv-body"><em>Ne rien prendre personnellement</em> et <em>ne pas supposer</em> — c'est exactement le diktat stoïcien en action. Ce que les autres font n'est pas en ton pouvoir. Ce qui est en ton pouvoir : ton accord intérieur avec leurs actes.</p><p class="conv-body" style="margin-top:12px;color:var(--texte-dim);font-size:14px;">Les deux traditions disent la même chose avec des langages différents. Ruiz en fait une image (le rêve de l'autre). Épictète en fait un axiome logique.</p></div>
+    <div class="conv-card card-parole"><span class="conv-num">II</span><span class="conv-icon">💬</span><p class="conv-title">La discipline de la parole</p><div class="conv-bridge"><span class="conv-bridge-tag t">Accord I · Parole</span><span class="conv-bridge-arrow">↔</span><span class="conv-bridge-tag s">Logos stoïcien</span></div><p class="conv-body">L'Accord I résonne avec la discipline stoïcienne du langage. Marc Aurèle se rappelle constamment de ne pas juger ce qu'il ne contrôle pas, de ne pas nommer le mal ce qui ne l'est pas.</p><p class="conv-body" style="margin-top:12px;color:var(--texte-dim);font-size:14px;">Le stoïcisme ajoute : chaque mot prononcé en jugement t'enchaîne à l'extérieur. Ruiz ajoute : chaque mot est un sort — il crée ou détruit.</p></div>
+    <div class="conv-card card-image"><span class="conv-num">III</span><span class="conv-icon">🌱</span><p class="conv-title">Images, sorts et graines</p><div class="conv-bridge"><span class="conv-bridge-tag t">Apport Ruiz</span><span class="conv-bridge-arrow">→</span><span class="conv-bridge-tag s">Ce que Ruiz ajoute</span></div><p class="conv-body">Ce que Ruiz apporte que le stoïcisme ne dit pas : les peurs comme sorts extérieurs, la manière dont les blessures s'implantent comme graines dans l'enfance, la domestication de l'esprit.</p><p class="conv-body" style="margin-top:12px;color:var(--texte-dim);font-size:14px;">Le stoïcisme explique <em>pourquoi</em> ne pas réagir. Ruiz explique <em>comment</em> le poison s'installe.</p></div>
+    <div class="conv-card card-temps"><span class="conv-num">IV</span><span class="conv-icon">⌛</span><p class="conv-title">Memento mori · Pourquoi maintenant</p><div class="conv-bridge"><span class="conv-bridge-tag s">Apport Stoïcisme</span><span class="conv-bridge-arrow">→</span><span class="conv-bridge-tag t">Ce que Ruiz n'a pas</span></div><p class="conv-body">Les Accords donnent un <em>comment vivre</em> sans ancrage temporel. Le stoïcisme donne l'urgence : tu mourras. Chaque jour non vécu selon ta meilleure nature est perdu à jamais.</p><p class="conv-body" style="margin-top:12px;color:var(--texte-dim);font-size:14px;">Meditatio mortis n'est pas pessimisme — c'est la raison de commencer <em>aujourd'hui</em>.</p></div>
+  </div>
+</section>
+<section class="section" style="border-bottom:0.5px solid rgba(212,168,67,0.06);">
+  <p class="section-label">Deux Voix, Un Écho</p>
+  <div class="citation-duel">
+    <div class="cit-block toltec-block"><div class="cit-ornement toltec">"</div><p class="cit-text">Rien de ce que les autres font n'est à cause de vous. Ce qu'ils font, c'est à cause d'eux-mêmes — de leur propre rêve.</p><p class="cit-source toltec">— don Miguel Ruiz · Les 4 Accords Toltèques</p><p class="cit-echo">Le rêve de l'autre te touche seulement si tu lui prêtes ta réalité. L'accord intérieur reste le tien.</p></div>
+    <div class="cit-block stoic-block"><div class="cit-ornement stoic">"</div><p class="cit-text">Ce qui trouble les hommes, ce ne sont pas les événements, mais les jugements qu'ils portent sur les événements.</p><p class="cit-source stoic">— Épictète · Manuel · I</p><p class="cit-echo">Le même principe, formulé en logique pure : la souffrance est dans le nom qu'on donne, pas dans la chose elle-même.</p></div>
+  </div>
+</section>
+<section class="section">
+  <div class="synthese">
+    <span class="synthese-glyph">★</span>
+    <p class="synthese-label">Synthèse · Protocole Ghost</p>
+    <h2 class="synthese-title">Chamanique + Raison Pure<br>= <span>Système Complet</span></h2>
+    <p class="synthese-body">Le Guerrier Toltèque sait <em>comment</em> les poisons s'installent — il reconnaît les sorts, désamorce les graines, parle avec intégrité. Le Sage Stoïcien sait <em>pourquoi</em> agir maintenant — la mort est réelle, le présent est le seul territoire.</p>
+    <p class="synthese-body">Ensemble, ils forment ce que ni l'un ni l'autre ne peut atteindre seul : une pratique enracinée dans le corps et dans le temps, concrète dans ses outils et urgente dans sa motivation.</p>
+    <p class="synthese-body" style="color:var(--texte-dim);">C'est le cœur de la Morale de Ghost : L'Aigle voit de haut (perspective stoïcienne). Macdubh tient le sol (accords tenus, parole nette). Le Taureau avance (action, discipline, sans excuses).</p>
+    <div class="synthese-pilliers"><span class="pill toltec-pill">Les Accords · Comment</span><span class="pill stoic-pill">Stoïcisme · Pourquoi</span><span class="pill ghost-pill">Ghost · Maintenant</span></div>
+    <div class="synthese-quote">La différence entre subir et vivre n'est pas dans les événements — elle est dans l'accord que tu passes avec eux, et dans l'urgence que tu mets à tenir cet accord.<span class="synthese-quote-src">Morale de Ghost · Protocole v1.0</span></div>
+  </div>
+</section>
+<div class="ecosystem-links">
+  <a href="index.html" class="eco-link">← Obsidian</a>
+  <a href="accord-1.html" class="eco-link">Les 5 Accords</a>
+  <a href="progression.html" class="eco-link">Progression</a>
+  <a href="https://macdubh28.github.io/marc-aurele/" class="eco-link featured" target="_blank" rel="noopener">Marc Aurèle · Ghost Ecosystem ↗</a>
+  <a href="https://macdubh28.github.io/HEGEMONIKON/" class="eco-link featured" target="_blank" rel="noopener">Hegemonikon ↗</a>
+</div>
+<footer><span class="footer-tag">Ghost Ecosystem · Platform VII · Obsidian</span><span class="footer-tag">Convergence · Macdubh28 · @AigleRoyal28</span></footer>
+</body>
+</html>

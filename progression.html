@@ -496,7 +496,26 @@
     line-height: 1.3;
   }
 
-  /* ─── DANGER ZONE ─── */
+  
+/* ─── P5 BADGES MILESTONES ─── */
+.badges-section { margin-bottom: 48px; }
+.badges-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.badge-item { background: var(--noir-2); border: 1px solid rgba(255,255,255,0.04); padding: 20px 12px; text-align: center; position: relative; transition: all 0.3s; }
+.badge-item.unlocked { border-color: var(--badge-color, var(--or)); background: rgba(0,0,0,0.5); }
+.badge-item.locked { opacity: 0.35; }
+.badge-icon { font-size: 1.8rem; display: block; margin-bottom: 8px; filter: grayscale(1); transition: filter 0.4s; }
+.badge-item.unlocked .badge-icon { filter: grayscale(0); }
+.badge-name { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gris-clair); margin-bottom: 4px; line-height: 1.3; }
+.badge-item.unlocked .badge-name { color: var(--badge-color, var(--or)); }
+.badge-days { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 0.12em; color: var(--gris); text-transform: uppercase; }
+.badge-item.unlocked .badge-days { color: var(--badge-color, var(--or)); opacity: 0.6; }
+.badge-check { position: absolute; top: 6px; right: 6px; width: 14px; height: 14px; border-radius: 50%; background: var(--badge-color, var(--or)); display: none; align-items: center; justify-content: center; font-size: 8px; color: var(--noir); font-weight: 900; }
+.badge-item.unlocked .badge-check { display: flex; }
+.badge-new { position: absolute; top: -6px; left: 50%; transform: translateX(-50%); font-family: 'Cinzel', serif; font-size: 7px; letter-spacing: 0.15em; background: var(--badge-color, var(--or)); color: var(--noir); padding: 2px 6px; text-transform: uppercase; white-space: nowrap; display: none; }
+.badge-item.is-new .badge-new { display: block; }
+@media (max-width: 700px) { .badges-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* ─── DANGER ZONE ─── */
   .danger-zone {
     border: 1px solid rgba(192,57,43,0.2);
     padding: 20px 24px;
@@ -652,7 +671,14 @@
   </div>
 
   <!-- Reset -->
-  <div class="danger-zone">
+  
+<!-- P5 : badges milestones -->
+<div class="badges-section">
+<p class="section-title">Badges Milestones</p>
+<div class="badges-grid" id="badgesGrid"></div>
+</div>
+
+<div class="danger-zone">
     <p class="danger-text">Réinitialiser toute la progression</p>
     <button class="btn-reset" id="btnReset">Recommencer à zéro</button>
   </div>
@@ -959,6 +985,7 @@ function render() {
   renderNiveauxGrid(streak);
   renderStats();
   renderCheckin();
+  renderBadges(state.checkedDays.length);
 }
 
 // ── Check-in action
@@ -989,6 +1016,35 @@ document.getElementById('btnReset').addEventListener('click', () => {
   saveState();
   render();
 });
+
+
+// ── P5 Milestones
+const MILESTONES = [
+  { days: 1,  icon: '◈', name: 'Premier Pas', color: 'rgba(91,143,212,0.9)' },
+  { days: 7,  icon: '◉', name: 'Une Semaine', color: 'rgba(39,174,96,0.9)' },
+  { days: 21, icon: '⚔', name: '21 Jours',    color: 'rgba(212,168,67,0.9)' },
+  { days: 30, icon: '★', name: 'Un Mois',     color: 'rgba(142,68,173,0.9)' },
+  { days: 60, icon: '◆', name: 'Deux Mois',   color: 'rgba(212,168,67,1)' },
+  { days: 90, icon: '◈', name: 'Nagual',      color: 'rgba(212,168,67,1)' },
+];
+
+function renderBadges(totalDays) {
+  const grid = document.getElementById('badgesGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  const prev = JSON.parse(localStorage.getItem('obsidian_badges_seen') || '[]');
+  const newSeen = [];
+  MILESTONES.forEach(m => {
+    const item = document.createElement('div');
+    item.className = 'badge-item' + (totalDays >= m.days ? ' unlocked' : ' locked');
+    item.style.setProperty('--badge-color', m.color);
+    const isNew = totalDays >= m.days && !prev.includes(m.days);
+    if (isNew) { item.classList.add('is-new'); newSeen.push(m.days); }
+    item.innerHTML = '<span class="badge-new">Nouveau</span><span class="badge-icon">' + m.icon + '</span><p class="badge-name">' + m.name + '</p><p class="badge-days">' + m.days + 'j</p><div class="badge-check">+</div>';
+    grid.appendChild(item);
+  });
+  if (newSeen.length) localStorage.setItem('obsidian_badges_seen', JSON.stringify([...prev, ...newSeen]));
+}
 
 // ── Init
 loadState();
